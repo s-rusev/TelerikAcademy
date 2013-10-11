@@ -1,0 +1,30 @@
+﻿Mimi Shmatkata       | Plovdiv  | 0888 12 34 56
+Kireto               | Ruse     | 0886 12 34 56
+Mimi Shmatkata       | Sofia    | 0888 12 34 56
+Daniela Todorva      | Varna    | 0878 13 34 56
+Mimi Shmatkata       | Plovdiv  | 0888 12 77 56
+Bat Pesho            | Sofia    | 0887 12 34 12
+Mimi Shmatkata       | Plovdiv  | 0888 12 34 56
+Kireto               | Ruse     | 0886 12 34 56
+Mimi Shmatkata       | Sofia    | 0888 12 34 56
+Daniela Todorva      | Varna    | 0878 13 34 56
+Mimi Shmatkata       | Plovdiv  | 0888 12 77 56
+Bat Pesho            | Sofia    | 0887 12 34 12
+Mimi Shmatkata       | Plovdiv  | 0888 12 34 56
+Kireto               | Ruse     | 0886 12 34 56
+Mimi Shmatkata       | Sofia    | 0888 12 34 56
+Daniela Todorva      | Varna    | 0878 13 34 56
+Mimi Shmatkata       | Plovdiv  | 0888 12 77 56
+Bat Pesho            | Sofia    | 0887 12 34 12
+Mimi Shmatkata       | Plovdiv  | 0888 12 34 56
+Kireto               | Ruse     | 0886 12 34 56
+Mimi Shmatkata       | Sofia    | 0888 12 34 56
+Daniela Todorva      | Varna    | 0878 13 34 56
+Mimi Shmatkata       | Plovdiv  | 0888 12 77 56
+Bat Pesho            | Sofia    | 0887 12 34 12
+Mimi Shmatkata       | Plovdiv  | 0888 12 34 56
+Kireto               | Ruse     | 0886 12 34 56
+Mimi Shmatkata       | Sofia    | 0888 12 34 56
+Daniela Todorva      | Varna    | 0878 13 34 56
+Mimi Shmatkata       | Plovdiv  | 0888 12 77 56
+Bat Pesho            | Sofia    | 0887 12 34 12
