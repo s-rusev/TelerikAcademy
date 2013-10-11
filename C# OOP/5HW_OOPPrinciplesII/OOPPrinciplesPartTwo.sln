@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.ShapesSurface", "01.ShapesSurface\01.ShapesSurface.csproj", "{0D727004-7D48-4A33-B224-B11728352BF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.Bank", "02.Bank\02.Bank.csproj", "{6983AA94-BF41-414D-B0D8-D01896847022}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D727004-7D48-4A33-B224-B11728352BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D727004-7D48-4A33-B224-B11728352BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D727004-7D48-4A33-B224-B11728352BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D727004-7D48-4A33-B224-B11728352BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6983AA94-BF41-414D-B0D8-D01896847022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6983AA94-BF41-414D-B0D8-D01896847022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6983AA94-BF41-414D-B0D8-D01896847022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6983AA94-BF41-414D-B0D8-D01896847022}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+xCoord: 1, yCoord: 1, zCoord: 1
+xCoord: 2, yCoord: 2, zCoord: 2
+xCoord: 3, yCoord: 3, zCoord: 3
+xCoord: 4, yCoord: 4, zCoord: 4
+xCoord: 5, yCoord: 5, zCoord: 5
