@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.Cooking", "1.Cooking\1.Cooking.csproj", "{94ABAEDB-17EC-499C-9D8D-DED657426B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3.RefactoredLoop", "3.RefactoredLoop\3.RefactoredLoop.csproj", "{54819A17-0669-44D7-AC42-F1AED68948D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.RefactoredStatements", "2.RefactoredStatements\2.RefactoredStatements.csproj", "{CC75B0CA-41EC-4A47-9A02-D43D8CD4EC6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94ABAEDB-17EC-499C-9D8D-DED657426B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94ABAEDB-17EC-499C-9D8D-DED657426B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94ABAEDB-17EC-499C-9D8D-DED657426B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94ABAEDB-17EC-499C-9D8D-DED657426B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54819A17-0669-44D7-AC42-F1AED68948D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54819A17-0669-44D7-AC42-F1AED68948D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54819A17-0669-44D7-AC42-F1AED68948D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54819A17-0669-44D7-AC42-F1AED68948D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC75B0CA-41EC-4A47-9A02-D43D8CD4EC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC75B0CA-41EC-4A47-9A02-D43D8CD4EC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC75B0CA-41EC-4A47-9A02-D43D8CD4EC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC75B0CA-41EC-4A47-9A02-D43D8CD4EC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

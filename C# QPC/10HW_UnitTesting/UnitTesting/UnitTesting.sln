@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.SchoolInformation", "1.SchoolInformation\1.SchoolInformation.csproj", "{E89A3C34-70B1-4D97-9AAD-B9900D1BBBD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.SchoolInformationTest", "1.SchoolInformationTest\1.SchoolInformationTest.csproj", "{6A6968DE-7341-4789-8698-26F2430F747D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F0415C5-7260-4FFF-A351-F886367EA8CD}"
+	ProjectSection(SolutionItems) = preProject
+		SchoolTestSettings.testsettings = SchoolTestSettings.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E89A3C34-70B1-4D97-9AAD-B9900D1BBBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E89A3C34-70B1-4D97-9AAD-B9900D1BBBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E89A3C34-70B1-4D97-9AAD-B9900D1BBBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E89A3C34-70B1-4D97-9AAD-B9900D1BBBD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6968DE-7341-4789-8698-26F2430F747D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6968DE-7341-4789-8698-26F2430F747D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6968DE-7341-4789-8698-26F2430F747D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6968DE-7341-4789-8698-26F2430F747D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
