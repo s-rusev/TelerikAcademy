@@ -1,0 +1,211 @@
+﻿@model Store.Models.Order
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    input[type="number"] {
+        width: 50px;
+    }
+    .line-through-red {
+        text-decoration: line-through;
+        color: #b62121;
+    }
+    .big-green {
+        color: #21b621;
+    }
+    .sure-message {
+        margin-top: 10px;
+        display: none;
+    }
+    textarea {
+        width: 700px;
+        height: 100px;
+    }
+</style>
+
+<h2>Cart</h2>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-box">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="error-box">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="error-box">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (Model == null)
+{
+    <p class="info"><span class="icon-info-sign"></span>Your cart is empty.</p>
+}
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                In Stock
+            </th>
+            <th>
+                Count
+            </th>
+            <th>
+                Price per unit
+            </th>
+            <th>
+                Discount
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ double totalSum = 0; }
+        @foreach (var orderedProduct in Model.OrderedProducts)
+        {
+            <tr>
+                <td>@Html.ActionLink(orderedProduct.Product.Name, "GetProduct", "Products", new { id = orderedProduct.Product.Id }, null)</td>
+                <td>@orderedProduct.Product.Stock</td>
+                <td>
+                    @using (Html.BeginForm("Change", "Cart", new { id = orderedProduct.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(o => orderedProduct.Id)
+                        <input type="number" name="count" value="@Html.DisplayFor(o => orderedProduct.Count)" />
+                        <input type="submit" class="btn btn-primary" value="Change" />
+                    }
+                </td>
+                <td>@Html.DisplayFor(o => orderedProduct.Product.Price)</td>
+                <td>
+                    @if (orderedProduct.Product.Discount.HasValue)
+                    {
+                        <div class="big-green">@orderedProduct.Product.Discount.Value %</div>
+                    }
+                    else
+                    {
+                        @:0 %
+                    }
+            </td>
+            @{
+                double price = orderedProduct.Product.Price * orderedProduct.Count;
+                double? discount = orderedProduct.Product.Discount;
+                if (discount.HasValue)
+                {
+                    <td>
+                        <span class="line-through-red">@price lv</span>
+                        <span class="big-green">@(price * (1 - discount.Value)) lv</span>
+                        @{ totalSum += price * (1 - discount.Value); }
+                    </td>
+                }
+                else
+                {
+                    <td>@price lv</td>
+                    totalSum += price;
+                }
+            }
+            <td>
+                <button class="delete-btn btn btn-danger">Delete</button>
+                <div class="sure-message">
+                    @using (Html.BeginForm("Delete", "Cart", new { id = orderedProduct.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @:Are you sure?
+                        <input type="submit" class="btn  btn-mini btn-primary" style="height: 22px;" value="Yes" />
+                        <button class="btn no-btn btn-mini btn-danger" type="button">No</button>
+                    }
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="font-size: 20px;">Total price:</td>
+            <td style="font-size: 20px;">
+                @totalSum lv
+            </td>
+        </tr>
+    </tfoot>
+</table>
+    
+    
+<div id="purchase-form">
+
+@using (Html.BeginForm("Purchase", "Cart", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset class="form-horizontal">
+        <legend>Order</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Notes, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Notes)
+                @Html.ValidationMessageFor(model => model.Notes, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Recipient, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Recipient)
+                @Html.ValidationMessageFor(model => model.Recipient, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Purchase" class="btn btn-primary btn-large" />
+        </div>
+    </fieldset>
+}
+
+</div>
+
+}
+
+
+
+    <script type="text/javascript">
+    $(".delete-btn").on("click", function () {
+        $(this).siblings(".sure-message").toggle();
+    });
+    $(".no-btn").on("click", function () {
+        $(this).parents(".sure-message").toggle();
+    });
+    </script>

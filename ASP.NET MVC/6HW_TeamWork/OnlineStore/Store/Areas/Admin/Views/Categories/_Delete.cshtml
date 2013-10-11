@@ -1,0 +1,29 @@
+﻿@model Store.Models.Category
+@{
+    bool canBeDeleted = this.ViewBag.CanBeDeleted;
+}
+<h2>Are you sure you want to delete this category?</h2>
+<p><strong>Name: </strong> @Html.DisplayFor(model => model.Name) </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        @if (canBeDeleted)
+        {
+            <input type="submit" value="Yes" class="btn" />
+            <a href="#" class="btn" id="no-btn">No</a>
+        }
+        else
+        {
+            <input type="submit" value="Yes" class="btn" disabled="disabled" />
+            <a href="#" class="btn" id="no-btn">No</a>
+            <p class="text-warning">
+                <i class="icon-warning-sign"></i>
+                The category cannot be delete because it is either parent category or has products in it.
+            </p>
+        }
+
+    </div>
+}

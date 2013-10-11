@@ -1,0 +1,50 @@
+﻿@model Store.ViewModels.IndexViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="search-form">
+    @using (Html.BeginForm("Search", "Home"))
+    {
+        @(Html.Kendo().AutoComplete()
+                .Name("query")
+                .DataTextField("Name")
+                .MinLength(3)
+                .HtmlAttributes(new { style = "width:250px" })
+                .Placeholder("Search products...")
+                .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("AutoComplete", "Home")
+                                    .Data("onAdditionalData");
+                            })
+                            .ServerFiltering(true);
+                        })
+        )
+        <input type="submit" value="Search" class="btn" />
+    }
+</div>
+
+<div id="row-fluid">
+    <div class="span3">
+        @(Html.Kendo().TreeView()
+            .Name("ProductsTreeView")
+            .BindTo(this.Model.TreeViewItems)
+        )
+
+        @(Html.Kendo().DatePicker().Name("Birthday"))
+    </div>
+    <div class="span7">
+        @Html.Partial("_ProductsListView", "PCs");
+    </div>
+</div>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#query").val()
+        };
+    }
+</script>

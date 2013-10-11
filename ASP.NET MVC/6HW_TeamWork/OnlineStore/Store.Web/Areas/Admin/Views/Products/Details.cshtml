@@ -1,0 +1,70 @@
+﻿@model Store.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<fieldset>
+    <legend>@Html.DisplayFor(model => model.Name)</legend>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount) %
+        </dd>
+
+    </dl>
+</fieldset>
+<div>
+    <a class="btn" id="delete-button" >Delete</a>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn" })
+</div>
+<div id="delete-confirm">
+    Are you sure?
+    @using (Html.BeginForm("Delete", "Products", new { id = Model.Id }, FormMethod.Post, new { style = "display: inline;" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Yes" class="btn" />
+    }
+    <input type="button" class="btn" id="no-button" value="No">
+</div>
+
+<script type="text/javascript">
+    $("#delete-button, #no-button").on("click", function () {
+        $("#delete-confirm").toggle();
+    });
+</script>

@@ -1,0 +1,9 @@
+﻿@model Store.Web.Models.ProductsListViewModel
+@{
+    ViewBag.Title = "Search Results";
+}
+
+<h2>Search results @(string.IsNullOrEmpty(Model.Query) ? "" : string.Format("for \"{0}\"", Model.Query))</h2>
+
+@Html.Partial("_ProductsListView", Model)
+

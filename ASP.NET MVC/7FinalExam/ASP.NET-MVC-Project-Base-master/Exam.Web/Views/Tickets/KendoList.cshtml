@@ -1,0 +1,55 @@
+﻿<div class="row-fluid">
+    @using (Html.BeginForm("Search", "Tickets", FormMethod.Post))
+    {
+        @(Html.Kendo()
+        .DropDownList()
+        .Name("CategoryName")
+        .DataTextField("CategoryName")
+        .DataValueField("CategoryName")
+        .OptionLabel("All")
+        .DataSource(data =>
+        {
+            data.Read(read => read.Action("GetTicketsCategoryData", "Tickets"));
+            data.ServerFiltering(true);
+        }))
+
+        <br />
+
+        <div>
+            <input type="submit" value="Search" class="btn" />
+        </div>
+    }
+</div>
+
+@(Html.Kendo()
+    .ListView<Exam.Web.Models.TicketListViewModel>()
+    .Name("tickets")
+    .TagName("div")
+        .ClientTemplateId("tickets-template")
+    .Pageable()
+    .DataSource(data =>
+    {
+        data.Read("GetTickets", "Tickets");
+        data.ServerOperation(true);
+        data.PageSize(5);
+    }))
+
+<script id="tickets-template" type="text/x-kendo-template">
+    <div class="row-fluid">
+        <div class="span3">
+            #: Title #
+        </div>
+        <div class="span3">
+            #: Category #
+        </div>
+        <div class="span3">
+            #: Author #
+        </div>
+        <div class="span2">
+            #: Priority #
+        </div>
+        <div class="span1">
+            <p><a href="/Tickets/Details/#: Id #" class="btn btn-small">Details...</a></p>
+        </div>
+    </div>
+</script>

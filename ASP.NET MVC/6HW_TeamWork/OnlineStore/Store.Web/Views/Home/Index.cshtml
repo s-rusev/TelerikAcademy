@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TreeViewItemModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="search-form">
+    @using (Html.BeginForm("Search", "Home"))
+    {
+        @(Html.Kendo().AutoComplete()
+                .Name("query")
+                .DataTextField("Name")
+                .MinLength(3)
+                .HtmlAttributes(new { style = "width:250px" })
+                .Placeholder("Search products...")
+                .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("AutoComplete", "Home")
+                                    .Data("onAdditionalData");
+                            })
+                            .ServerFiltering(true);
+                        })
+        )
+        <input type="submit" value="Search" class="btn" />
+    }
+</div>
+
+<div id="products-container">
+    <div id="row-fluid">
+        <div class="span3">
+            <h3>Categories</h3>
+            @(Html.Kendo().TreeView()
+            .Name("ProductsTreeView")
+            .BindTo(Model)
+            .Events(events => events.Select("onSelect"))
+            )
+
+        </div>
+        <div class="span7" id="ajax-container">
+            @Html.Partial("_ProductsListView", new Store.Web.Models.ProductsListViewModel { });
+        </div>
+    </div>
+</div>
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#query").val()
+        };
+    }
+
+    function onSelect(e) {
+        var category = this.text(e.node);
+
+        $.ajax("/Home/ProductsListView", {
+            data: {
+                category: category
+            },
+            success: function (data) {
+                $("#ajax-container").html(data);
+            }
+        });
+    }
+</script>

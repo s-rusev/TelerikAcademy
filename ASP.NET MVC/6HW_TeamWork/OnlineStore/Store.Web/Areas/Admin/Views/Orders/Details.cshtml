@@ -1,0 +1,53 @@
+﻿@model Store.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>User</th>
+        <th>@Html.DisplayNameFor(model => model.Date)</th>
+        <th>@Html.DisplayNameFor(model => model.Notes)</th>
+        <th>@Html.DisplayNameFor(model => model.OrderStatus)</th>
+        <th>@Html.DisplayNameFor(model => model.Recipient)</th>
+        <th>@Html.DisplayNameFor(model => model.Address)</th>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.User.UserName)</td>
+        <td>@Html.DisplayFor(model => model.Date)</td>
+        <td>@Html.DisplayFor(model => model.Notes)</td>
+        <td>@Html.DisplayFor(model => model.OrderStatus)</td>
+        <td>@Html.DisplayFor(model => model.Recipient)</td>
+        <td>@Html.DisplayFor(model => model.Address)</td>
+    </tr>
+</table>
+
+<h3>Ordered Products</h3>
+<div>
+    @(Html.Kendo()
+          .Grid<Store.Web.Areas.Admin.Models.OrderedProductViewModelShort>()
+          .Name("grid")
+          .Columns(columns => {
+    columns.Bound(x => x.Name);
+    columns.Bound(x => x.Count);
+    })
+          .Pageable()
+          .Sortable(sortable => sortable.SortMode(GridSortMode.SingleColumn))
+          .Filterable()
+          .DataSource(dataSource =>
+    dataSource
+    .Ajax()
+    .ServerOperation(true)
+    .Read("GetProducts", "Orders", new { id = Model.Id })
+    .Model(model => model.Id(x => x.Id))
+    .PageSize(5)
+    )
+    )
+</div>
+<p class="buttons-container">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+</p>

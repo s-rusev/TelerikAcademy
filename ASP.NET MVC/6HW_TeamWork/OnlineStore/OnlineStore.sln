@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Models", "Store.Models\Store.Models.csproj", "{71554F69-7858-466D-8AD2-DF0CED775C2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Data", "Store.Data\Store.Data.csproj", "{67C50DE4-3823-44F1-835E-7E8B82B50FCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj", "{06F141C3-6559-40D6-893E-19D5F4676FE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Web", "Store.Web\Store.Web.csproj", "{010C0062-6C5F-4224-BA53-888223E40686}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs22
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Store.Models\\Store.Models.csproj
+		SccProjectName1 = Store.Models
+		SccLocalPath1 = Store.Models
+		SccProjectUniqueName2 = Store.Data\\Store.Data.csproj
+		SccProjectName2 = Store.Data
+		SccLocalPath2 = Store.Data
+		SccProjectUniqueName3 = Store\\Store.csproj
+		SccProjectName3 = Store
+		SccLocalPath3 = Store
+		SccProjectUniqueName4 = Store.Web\\Store.Web.csproj
+		SccProjectName4 = Store.Web
+		SccLocalPath4 = Store.Web
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71554F69-7858-466D-8AD2-DF0CED775C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71554F69-7858-466D-8AD2-DF0CED775C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71554F69-7858-466D-8AD2-DF0CED775C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71554F69-7858-466D-8AD2-DF0CED775C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67C50DE4-3823-44F1-835E-7E8B82B50FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C50DE4-3823-44F1-835E-7E8B82B50FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C50DE4-3823-44F1-835E-7E8B82B50FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C50DE4-3823-44F1-835E-7E8B82B50FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06F141C3-6559-40D6-893E-19D5F4676FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06F141C3-6559-40D6-893E-19D5F4676FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06F141C3-6559-40D6-893E-19D5F4676FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06F141C3-6559-40D6-893E-19D5F4676FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{010C0062-6C5F-4224-BA53-888223E40686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{010C0062-6C5F-4224-BA53-888223E40686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{010C0062-6C5F-4224-BA53-888223E40686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{010C0062-6C5F-4224-BA53-888223E40686}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

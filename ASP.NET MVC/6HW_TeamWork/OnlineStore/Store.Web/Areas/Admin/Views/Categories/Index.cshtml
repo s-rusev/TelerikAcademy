@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Store.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Categories</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+@(Html.Kendo()
+      .Grid<Store.Web.Areas.Admin.Models.CategoryViewModel>()
+      .Name("grid")
+      .Columns(columns => {
+columns.Bound(x => x.Name);
+columns.Bound(x => x.ParentCategory);
+columns.Bound(x => x.ProductsCount);
+columns.Template(x => null).ClientTemplate(
+"<a href='categories/edit/#=Id#' class='k-button k-button-icontext'>Edit</a>" +
+"<a href='/Admin/Categories/Delete/#:Id#' data-ajax-update='\\#ajax-container' data-ajax-mode='replace' data-ajax-method='GET' data-ajax='true' class='k-button k-button-icontext'>Delete</a>");
+})
+      .Pageable()
+      .Sortable(sortable => sortable.SortMode(GridSortMode.SingleColumn))
+      .Filterable()
+      .DataSource(dataSource => 
+dataSource
+.Ajax()
+.ServerOperation(true)
+.Read("All", "Categories")
+.Model(model => model.Id(x => x.Id))
+.PageSize(5)
+)
+)
+
+<div id="ajax-container"></div>
+
+<script>
+    $("#ajax-container").on("click", "#no-btn", function (ev) {
+        ev.preventDefault();
+        $("#ajax-container").html("");
+    });
+</script>

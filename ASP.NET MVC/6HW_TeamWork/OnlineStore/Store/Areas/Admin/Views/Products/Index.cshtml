@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+<p>
+    <a href='/Admin/Products/Create' class='btn btn-primary'>Create</a>
+</p>
+
+@(Html.Kendo().Grid<Store.ViewModels.ProductViewModel>()
+.Name("Grid")
+.Columns(columns =>
+    {
+        columns.Bound(p => p.Name);
+        columns.Bound(p => p.Description);
+        columns.Bound(p => p.Price);
+        columns.Bound(p => p.Stock);
+        columns.Bound(p => p.Discount);
+        columns.Bound(p => p.Category);
+        columns.Template(p => null).ClientTemplate(@"
+            <a href='/Admin/Products/Details/#:Id#' data-ajax-update='\\#ajax-container' data-ajax-mode='replace' data-ajax-method='GET' data-ajax='true' class='k-button k-button-icontext'>Details</a>
+            <a href='/Admin/Products/Edit/#:Id#' class='k-button k-button-icontext'>Edit</a>"
+        ).Title("Commands").Width(250);
+    })
+.Editable(editable => editable.Mode(GridEditMode.InLine))
+.DataSource(datasource =>
+    datasource
+        .Ajax()
+        .PageSize(10)
+        .Model(model =>
+        {
+            model.Id(product => product.Id);
+            model.Field(product => product.Id).Editable(false);
+        })
+        .Read(read => read.Action("ProductsRead", "Products"))
+)
+.Pageable()
+.Sortable()
+.Filterable()
+)
+
+<div id="ajax-container"></div>

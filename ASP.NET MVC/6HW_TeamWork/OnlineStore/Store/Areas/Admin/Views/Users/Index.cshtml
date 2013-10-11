@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+
+@(Html.Kendo().Grid<Store.Areas.Admin.Models.UserViewModel>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(x => x.Username);
+        columns.Bound(x => x.Email);
+        columns.Bound(x => x.PendingOrders);
+        columns.Bound(x => x.FinishedOrders);
+        columns.Bound(x => x.Role);
+        columns.Template(x => null).ClientTemplate("<a href='users/edit/#=Id#' class='k-button k-button-icontext'>Edit</a>");
+    })
+    .Pageable()
+    .Sortable(sortable => sortable.SortMode(GridSortMode.SingleColumn))
+    .Filterable()
+    .DataSource(dataSource =>
+        dataSource
+            .Ajax()
+            .ServerOperation(true)
+            .Read("All", "Users")
+            .Model(model => model.Id(x => x.Id))
+            .PageSize(5)
+    )
+)
+
+
+
+

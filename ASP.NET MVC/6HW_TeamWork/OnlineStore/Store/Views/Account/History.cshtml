@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Store.Models.Order>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>My Orders History</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recipient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+            </th>
+        <th></th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="4">
+                <p class="info"><span class=" icon-info-sign"></span> You have no orders yet ...</p>
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Recipient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Ajax.ActionLink("Details", "Details", new { id = item.Id }, new AjaxOptions
+                   {
+                       HttpMethod = "GET",
+                       InsertionMode = InsertionMode.Replace,
+                       UpdateTargetId = "details-history",
+                       OnSuccess = "showCloseButton"
+                   })
+            </td>
+        </tr>
+    }
+    }
+</table>
+
+<div id="details-history">
+    
+</div>
+
+<div id="close-btn" class="form-actions no-color" style="display:none">
+    <input type="button" value="Close" class="btn" onclick="closeDetailsForm()" />
+</div>
+
+
+<script>
+    function closeDetailsForm() {
+        $("#details-history").fadeOut();
+        $("#close-btn").fadeOut();
+    };
+
+    function showCloseButton() {
+        $("#details-history").fadeIn();
+        $("#close-btn").fadeIn();
+    };
+</script>

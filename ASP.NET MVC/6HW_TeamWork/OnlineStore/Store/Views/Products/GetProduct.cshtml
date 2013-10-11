@@ -1,0 +1,69 @@
+﻿@using Store.Models
+@model Store.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>@Model.Name</h2>
+
+<div id="product-info-container" class="hero-unit">
+    <div id="images-container">
+        @if (Model.PhotosUrlList != null && Model.PhotosUrlList.Count != 0)
+        {
+            <div id="large-image-container" style="height: 150px">
+                <img src="~/Content/Images/@Model.Id/@Model.PhotosUrlList[0]" id="large-thumbnail" class="thumbnail" style="max-width: 150px; max-height: 150px" />
+            </div>
+            <br />
+            <ul id="thumbnail-list" class="thumbnails">
+                @foreach (var path in Model.PhotosUrlList)
+                {
+                    <li style="width: 50px; height: 50px">
+                        <img src="~/Content/Images/@Model.Id/@path" class="thumbnail" style="max-width: 50px; max-height: 50px" />
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Price):
+        </dt>
+        <dd>
+            @Model.Price BGN
+        </dd>
+        @if (Model.Discount != null && Model.Discount != 0)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Discount):
+            </dt>
+            <dd>
+                @((Model.Discount * Model.Price) * -1) BGN
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.Description):
+        </dt>
+        <dd>
+            @Model.Description
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock):
+        </dt>
+        <dd>
+            @Model.Stock
+        </dd>
+    </dl>
+    <div id="buttons-container">
+        @Html.ActionLink("Add to cart", "Add", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Buy now", "OrderNow", new { id = @Model.Id }, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<script>
+    $("#thumbnail-list").on("click", "img", function (ev) {
+        $("#large-thumbnail").attr("src", $(this).attr("src"));
+        $(".thumbnail").css("border", "1px solid #ddd");
+        $(this).css("border", "1px solid #000");
+    })
+</script>

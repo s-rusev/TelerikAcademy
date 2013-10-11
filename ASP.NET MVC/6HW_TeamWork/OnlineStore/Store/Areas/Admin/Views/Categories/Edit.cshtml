@@ -1,0 +1,95 @@
+﻿@model Store.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset class="form-horizontal">
+        <legend>Category</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                @if (ViewBag.HasParent)
+                {
+                    @Html.CheckBox("HasParent", true, new { id = "hasParent" }) <span>Has parent</span>
+                }
+                else
+                {
+                    @Html.CheckBox("HasParent", false, new { id = "hasParent" }) <span>Has parent</span>
+                }
+
+                <p id="loading" class="loading-info">Loading categories...</p>
+            </div>
+        </div>
+
+        <div class="control-group" id="parent-categories" style="display: none">
+            <div class="controls"></div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Save" class="btn" />
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}
+
+<script>
+    function renderParentCategories() {
+        var id = @Model.Id;
+        var parentId = @this.ViewBag.ParentId
+
+        $.ajax("/Admin/Categories/CategoriesDropdown", {
+            data: {
+                id: id,
+                parentId: parentId
+            },
+            success: function (data) {
+                $("#parent-categories div").html(data);
+                $("#loading").hide();
+                $("#parent-categories").show();
+            }
+        });
+    }
+
+    $(function () {
+        if ($("#hasParent").is(":checked")) {
+            renderParentCategories();
+        }
+
+        $('#hasParent').change(function () {
+            if ($(this).is(":checked")) {
+                $("#loading").show();
+                renderParentCategories();
+            }
+            else {
+                $("#parent-categories div").html("");
+                $("#parent-categories").hide();
+            }
+            $('#textbox1').val($(this).is(':checked'));
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

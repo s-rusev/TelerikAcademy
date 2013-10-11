@@ -1,0 +1,78 @@
+﻿@model Store.Models.Order
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Order</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset class="form-horizontal">
+        <legend>Order</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Date, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Date)
+                @Html.ValidationMessageFor(model => model.Date, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Notes, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Notes, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.Notes, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.OrderStatus, new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownList("OrderStatus", (IEnumerable<SelectListItem>)ViewBag.Statuses)
+                @Html.ValidationMessageFor(model => model.OrderStatus, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.UserId, "UserId", new { @class = "control-label" })
+            <div class="controls">
+                @Html.DropDownList("UserId", String.Empty)
+                @Html.ValidationMessageFor(model => model.UserId, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Recipient, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Recipient)
+                @Html.ValidationMessageFor(model => model.Recipient, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Save" class="btn" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn" })
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

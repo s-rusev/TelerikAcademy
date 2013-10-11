@@ -1,0 +1,24 @@
+﻿@model Store.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+
+@(Html.Kendo().Window()
+    .Name("Window")
+    .Title(String.Format("{0} - {1}", Model.Category.Name, Model.Name))
+    .Width(500)
+    .Scrollable(true)
+    .Draggable()
+    .Content(
+    @<div>
+        <div class="product-description"><i>Price @Model.Price</i></div>
+        <div class="product-description"><i>In stock: @Model.Stock</i></div>
+        <div class="product-description">Product Description: @Model.Description</div>
+        <div class="product-description">Discount @Model.Discount %</div>
+        <div class="product-description"><a href="/">Go back</a></div>
+    </div>
+   )
+)

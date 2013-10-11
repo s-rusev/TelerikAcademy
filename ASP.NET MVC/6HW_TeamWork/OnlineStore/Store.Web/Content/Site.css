@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* styles for removing the background from form */
+.no-color {
+    background-color: white;
+    border-style: none;
+}
+
+#delete-confirm {
+    display: none;
+}
+
+/* message boxes */
+
+.success-box, .error-box {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+}
+
+.success-box {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image: url('Images/success.png');
+}
+
+.error-box {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('Images/error.png');
+}
+
+.loading-info {
+    display: none;
+    margin: 1%;
+    font-style: italic;
+    color: #999;
+}
+
+#ajax-container {
+    margin-top: 2%;
+}
+
+.warning {
+    font-style: italic;
+    color: #ef7272;
+}
+
+.buttons-container {
+    margin-top: 1%;
+}
+
+#search-form {
+    text-align: right;
+}
+
+#listView {
+    border: 0;
+}

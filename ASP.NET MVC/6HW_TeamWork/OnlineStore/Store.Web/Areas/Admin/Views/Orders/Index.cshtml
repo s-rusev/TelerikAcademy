@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Manage Orders";
+}
+
+<h2>Manage Orders</h2>
+
+@(Html.Kendo()
+      .Grid<Store.Web.Areas.Admin.Models.OrderViewModel>()
+      .Name("grid")
+      .Columns(columns => {
+columns.Bound(x => x.Id);
+columns.Bound(x => x.User);
+columns.Bound(x => x.ProductsCount);
+columns.Bound(x => x.Recipient);
+columns.Bound(x => x.Address);
+columns.Bound(x => x.Notes);
+columns.Bound(x => x.Date);
+columns.Bound(x => x.OrderStatus);
+columns.Template(x => null).ClientTemplate(
+"<a href='/Admin/Orders/edit/#=Id#' class='k-button k-button-icontext'>Edit</a>" +
+"<a href='/Admin/Orders/details/#=Id#' class='k-button k-button-icontext'>Details</a>" +
+"<a href='/Admin/Orders/Delete/#:Id#' data-ajax-update='\\#ajax-container' data-ajax-mode='replace' data-ajax-method='GET' data-ajax='true' class='k-button k-button-icontext'>Delete</a>");
+})
+      .Pageable()
+      .Sortable(sortable => sortable.SortMode(GridSortMode.SingleColumn))
+      .Filterable()
+      .DataSource(dataSource =>
+dataSource
+.Ajax()
+.ServerOperation(true)
+.Read("All", "Orders")
+.Model(model => model.Id(x => x.Id))
+.PageSize(5)
+)
+)
+
+<div id="ajax-container"></div>
+
+<script>
+    $("#ajax-container").on("click", "#no-btn", function (ev) {
+        ev.preventDefault();
+        $("#ajax-container").html("");
+    });
+</script>

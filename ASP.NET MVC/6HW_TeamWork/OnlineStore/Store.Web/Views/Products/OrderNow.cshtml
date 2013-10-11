@@ -1,0 +1,65 @@
+﻿@model Store.Web.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "OrderNow";
+}
+
+<h2>Order Now</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset class="form-horizontal">
+        <legend>Your order</legend>
+
+        @Html.HiddenFor(model => model.ProductId)
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.ProductQuantity, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.ProductQuantity)
+                @Html.ValidationMessageFor(model => model.ProductQuantity, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Notes, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Notes)
+                @Html.ValidationMessageFor(model => model.Notes, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Recipient, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Recipient)
+                @Html.ValidationMessageFor(model => model.Recipient, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="control-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label" })
+            <div class="controls">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "help-inline" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Order!" class="btn" />
+        </div>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to product", "GetProduct", new { id = @Model.ProductId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

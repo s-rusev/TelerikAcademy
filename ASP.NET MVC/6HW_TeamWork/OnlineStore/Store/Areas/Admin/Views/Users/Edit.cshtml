@@ -1,0 +1,41 @@
+﻿@model Store.Models.StoreUser
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>Edit User</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset class="form-horizontal">
+            <legend>User - <strong>@Model.UserName</strong></legend>
+
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="control-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.EditorFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "help-inline" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                @Html.Label("Role", new { @class = "control-label" })
+                <div class="controls">
+                    @Html.DropDownList("Role", (List<SelectListItem>)ViewBag.Roles)
+                </div>
+            </div>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Save" class="btn" />
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn" })
+            </div>
+        </fieldset>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
