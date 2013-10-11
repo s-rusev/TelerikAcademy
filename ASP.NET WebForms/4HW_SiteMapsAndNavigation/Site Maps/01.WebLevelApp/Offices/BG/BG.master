@@ -1,0 +1,13 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Offices/Offices.master" AutoEventWireup="true" CodeBehind="BG.master.cs" Inherits="_01.WebLevelApp.Offices.BG.BG" %>
+<asp:Content ID="ContentBGMaster" ContentPlaceHolderID="OfficesContentPlaceHolder" runat="server">
+
+    <asp:Menu runat="server">
+        <Items>
+            <asp:MenuItem NavigateUrl="~/Offices/BG/Sofia.aspx" Text="София" Value="София"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Offices/BG/Varna.aspx" Text="Варна" Value="Варна"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Offices/BG/Plovdiv.aspx" Text="Пловдив" Value="Пловдив"></asp:MenuItem>
+        </Items>
+    </asp:Menu>
+
+    <asp:ContentPlaceHolder runat="server" ID="BGContentPlaceHolder" />
+</asp:Content>

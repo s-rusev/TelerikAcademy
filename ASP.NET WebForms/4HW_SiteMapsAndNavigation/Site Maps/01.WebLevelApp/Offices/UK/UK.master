@@ -1,0 +1,13 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Offices/Offices.master" AutoEventWireup="true" CodeBehind="UK.master.cs" Inherits="_01.WebLevelApp.Offices.UK.UK" %>
+<asp:Content ID="UKContentMaster" ContentPlaceHolderID="OfficesContentPlaceHolder" runat="server">
+
+    <asp:Menu runat="server">
+        <Items>
+            <asp:MenuItem NavigateUrl="~/Offices/UK/London.aspx" Text="London" Value="London"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Offices/UK/Bristol.aspx" Text="Bristol" Value="Bristol"></asp:MenuItem>
+            <asp:MenuItem NavigateUrl="~/Offices/UK/Manchester.aspx" Text="Manchester" Value="Manchester"></asp:MenuItem>
+        </Items>
+    </asp:Menu>
+
+    <asp:ContentPlaceHolder runat="server" ID="UKContentPlaceHolder" />
+</asp:Content>
