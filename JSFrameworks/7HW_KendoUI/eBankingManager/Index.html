@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>KendoSpa</title>
+    <link href="Styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="Styles/kendo.silver.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery.min.js"></script>
+    <script src="Scripts/everlive.all.min.js"></script>
+    <script src="Scripts/jquery.min.js"></script>
+    <script src="Scripts/kendo.web.min.js"></script>
+</head>
+<body>
+    <script>
+        $(function () {
+            var everliveConfig = {
+                appKey: "5ea2iMpkmWF5AFhW",
+            };
+            var app = new Everlive(everliveConfig.appKey);
+
+            if (localStorage.getItem("accessToken")) {
+                app.setup.access_token = localStorage.getItem("accessToken")
+            }
+
+            $("#application").on("click", "#btn-register", function () {
+                var user = {
+                    username: $("#tb-username").val(),
+                    password: $("#tb-password").val()
+                }
+
+                app.Users.register(user.username, user.password)
+                    .then(function (data) {
+                      //  alert("Successful register!");
+                        //var accessToken = data.result.access_token;
+                        //app.setup.access_token = accessToken;
+                        //localStorage.setItem("accessToken", accessToken);
+                        //console.log(data);
+                    }, function (err) {
+                        //       console.log(err);
+                    });
+            });
+
+            $("#application").on("click", "#btn-login", function () {
+                var user = {
+                    username: $("#tb-username").val(),
+                    password: $("#tb-password").val()
+                }
+
+                app.Users.login(user.username, user.password)
+                    .then(function (data) {
+                        var accessToken = data.result.access_token;
+                        app.setup.access_token = accessToken;
+                        localStorage.setItem("accessToken", accessToken);
+                        console.log(data);
+                    }, function (err) {
+                        console.log(err);
+                    });
+            });
+
+            $("#application").on("click", "#btn-logout", function () {
+                app.Users.logout(function () {
+                    app.setup.access_token = null;
+                    localStorage.setItem("accessToken", null);
+                    alert('successful logout');
+                }, function () {
+                    alert('failed to logout');
+                });
+            });
+
+        });
+    </script>
+
+    <!-- ************************ -->
+    <header>
+        <h1>eBankingManager
+        </h1>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="#/home" id="home">Home</a>
+            </li>
+            <li>
+                <a href="#/about" id="about">About Us</a>
+            </li>
+            <li>
+                <a href="#/register" id="register">Register</a>
+            </li>
+            <li>
+                <a href="#/login" id="login">Login</a>
+            </li>
+        </ul>
+    </nav>
+    <section>
+        <div id="application">
+        </div>
+    </section>
+
+    <!-- Templates -->
+    <!--home, about, register, login-->
+    <!--after login -> can deposit money , withdraw money, see log of transactions-->
+    <script type="text/kendo-tmpl" id="main-layout">
+        <div id="content">
+        </div>
+    </script>
+
+    <script type="text/kendo-tmpl" id="home-layout">
+            Home of eBankingManager.
+    </script>
+
+    <script type="text/kendo-tmpl" id="about-us-layout">
+            About us sample text.
+    </script>
+
+    <script type="text/kendo-tmpl" id="register-layout">
+        <fieldset>
+        <legend>Everlive REST API Register</legend>
+        <label for="tb-username">Username</label>
+        <input type="text" id="tb-username" /><br />
+        <label for="tb-password">Password</label>
+        <input type="password" id="tb-password" /><br />
+        <button id="btn-register">Register</button>
+        </fieldset>
+    </script>
+
+    <script type="text/kendo-tmpl" id="login-layout">
+        <fieldset>
+        <legend>Everlive REST API Register</legend>
+        <label for="tb-username">Username</label>
+        <input type="text" id="tb-username" /><br />
+        <label for="tb-password">Password</label>
+        <input type="password" id="tb-password" /><br />
+        <button id="btn-login">Login</button>
+        <button id="btn-logout">Logout</button>
+        </fieldset>
+    </script>
+
+    <!-- Kendo SPA-->
+    <script>
+        $("nav > ul").kendoMenu({ orientation: "horizontal" });
+
+        //layouts
+        var layout = new kendo.Layout('main-layout');
+
+        //views
+        var homeView = new kendo.View('home-layout');
+        //var listCarsView = new kendo.View('available-cars-layout', { model: carListViewModel });
+        //var carDetailView = new kendo.View('car-details-template', { model: carDetail });
+        var aboutView = new kendo.View('about-us-layout');
+        var contactView = new kendo.View('contact-layout');
+
+        var registerView = new kendo.View('register-layout');
+        var loginView = new kendo.View('login-layout');
+
+        //nav button
+        $('#home').on('click', function () {
+            layout.showIn('#content', homeView);
+        });
+
+        $('#about').on('click', function () {
+            layout.showIn('#content', aboutView);
+        });
+
+        $('#register').on('click', function () {
+            layout.showIn('#content', registerView);
+        })
+
+        $('#btn-register').on('click', function () {
+            layout.showIn('#content', loginView);
+        })
+
+        $('#login').on('click', function () {
+            layout.showIn('#content', loginView);
+        });
+
+        //routing
+        var router = new kendo.Router({
+            init: function () {
+                layout.render('#application');
+            }
+        });
+
+        router.route('/', function () {
+            layout.showIn('#content', homeView);
+        });
+
+        router.route('/register', function () {
+            layout.showIn('#content', registerView);
+        });
+
+        router.route('/login', function () {
+            layout.showIn('#content', loginView);
+        });
+
+        router.route('/about', function () {
+            layout.showIn('#content', aboutView);
+        });
+
+        $(function () {
+            router.start();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <!--<script src="path/to/everlive.all.min.js"></script>-->
+    <script src="scripts/jquery-2.0.3.js"></script>
+    <script src="scripts/everlive.all.js"></script>    
+    <script src="scripts/http-request.js"></script>
+    <script src="scripts/mustache.js"></script>
+    <script src="scripts/rsvp.min.js"></script>
+</head>
+<body>
+    <div id="content">
+    <fieldset>
+		<legend>Everlive REST API Register</legend>
+		<label for="tb-username">Username</label>
+		<input type="text" id="tb-username" /><br />
+		<label for="tb-password">Password</label>
+		<input type="password" id="tb-password" /><br />
+        <label for="tb-username">Display Name</label>
+		<input type="text" id="tb-displayName" /><br />
+        <label for="tb-username">E-mail</label>
+		<input type="text" id="tb-email" /><br />
+		<button id="btn-register">Register</button>
+		<button id="btn-login">Login</button>
+	</fieldset>
+	
+    </div>
+	<script>
+	    $(function () {
+
+	        var app = new Everlive("qlUsb5WxsvscucOl");
+
+	        if (localStorage.getItem("accessToken")) {
+	            app.setup.access_token = localStorage.getItem("accessToken")
+	        }
+
+
+	        $("#btn-register").on("click", function () {
+	            var user = {
+	                Username: $("#tb-username").val(),
+	                Password: $("#tb-password").val(),
+	                DisplayName: $("#tb-displayName").val(),
+	                Email: $("#tb-email").val()
+	            }
+
+	            app.Users.register(user.Username, user.Password, user);
+	            //request.post(everliveConfig.url + "Users", user)
+	            //	.then(function (data) {
+	            //	    console.log(data);
+	            //	    everliveConfig.token = data.result.access_token;
+	            //	    $("#content").append(
+
+	            //            "<button id='create-post'>Create post</button>" +
+	            //            "<button id='logout'>Logout</button>"
+	            //            );
+	            //	}, function (err) {
+	            //	    console.log(err);
+	            //	});
+	        });
+
+	        $("#btn-login").on("click", function () {
+	            var user = {
+	                username: $("#tb-username").val(),
+	                password: $("#tb-password").val()
+	            }
+
+	            app.Users.login(user.username, user.password)
+                    .then(function (result) {
+                        var accessToken = result.result.access_token;
+                        app.setup.access_token = accessToken;
+                        localStorage.setItem("accessToken", accessToken);
+                        $("#content").append(
+                          "<button id='create-post'>Create post</button>" +
+                          "<button id='btn-logout'>Logout</button>"
+                          );
+
+                    }), function (err) {
+                        alert("The user can't be logged in!", err);
+                    }
+
+	            //request.post(everliveConfig.url + "oauth/token", user)
+	            //	.then(function (data) {
+	            //	    console.log(data);
+	            //	    everliveConfig.token = data.Result.access_token;					   
+	            //	    $("#content").append(
+
+	            //            "<button id='create-post'>Create post</button>" +
+	            //            "<button id='btn-logout'>Logout</button>"
+	            //            );
+	            //	}, function (err) {
+	            //	    console.log(err);
+	            //	});
+	        });
+
+	        //$("#btn-all-users").on("click", function () {
+	        //    console.log(everliveConfig.token);
+	        //    request.get(everliveConfig.url + "Users", { "Authorization": "Bearer " + everliveConfig.token })
+	        //		.then(function (data) {
+	        //		    console.log(data);
+	        //		},
+	        //		function (err) {
+	        //		    console.error(err);
+	        //		});
+	        //});
+
+	        $("#btn-logout").on("click", function () {
+	            app.Users.logout(function () {
+	                app.setup.access_token = null;
+	                localStorage.setItem("accessToken", null);
+	                alert('successful logout');
+	            }, function () {
+	                alert('failed to logout');
+	            });
+	        });
+	    });
+	</script>
+</body>
+</html>

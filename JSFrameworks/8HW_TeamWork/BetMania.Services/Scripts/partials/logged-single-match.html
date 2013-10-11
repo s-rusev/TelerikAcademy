@@ -1,0 +1,81 @@
+﻿<div data-template="single-match-template" data-bind="source: match">
+</div>
+
+<script type="text/x-kendo-template" id="single-match-template">
+    <table class="matches" id="single-match">
+        <thead>
+            <tr>
+                <th style="font-size: 14px;">
+                    #: startTime #
+                </th>
+                <th>#: home #</th>
+                <th>#: homeScore # : #: awayScore #</th>
+                <th>#: away #</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    #if (status == 1){ # Up-coming # } #
+                    #if (status == 2){ # In-progress # } #
+                    #if (status == 3){ # Finished # } #
+                </td>
+                <td>Home: #: homeCoefficient #</td>
+                <td>Draw: #: drawCoefficient #</td>
+                <td>Away: #: awayCoefficient #</td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+
+<table id="bet-table" style="width: 45%; float: left;">
+    <thead>
+        <tr>
+            <th colspan="2">Make a bet</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Amount: </td>
+            <td><input style="width: 50px;" type="text" data-bind="events: { change: changeBetAmount }" /></td>
+        </tr>
+        <tr>
+            <td>Bet type: </td>
+            <td>
+                <select data-role="dropdownlist" data-text-field="name" data-value-field="name" 
+                    data-bind="source: betTypesSource, value: betTypeValue, events: { change: updateProfit }"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>Coefficient: </td>
+            <td data-bind="text: coefficient"></td>
+        </tr>
+        <tr>
+            <td>Profit: </td>
+            <td data-bind="text: profit"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a style="float: right;" class="button" data-bind="click: bet">Bet</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table id="single-match-bet-table" class="matches" style="width: 46%; float: right;">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Bet types</th>
+        </tr>
+    </thead>
+    <tbody data-template="single-bet-row-template" data-bind="source: match[0].bets">
+    </tbody>
+</table>
+
+<script type="text/x-kendo-template" id="single-bet-row-template">
+    <tr>
+        <td>#: amount #</td>
+        <td>#: betType #</td>
+    </tr>
+</script>

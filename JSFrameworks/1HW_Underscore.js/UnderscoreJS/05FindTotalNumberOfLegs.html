@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Find number of animal legs</title>
+     <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+     var Animal = Class.create({
+            init: function (type, legs) {
+                this.type = type;
+                this.legs = legs;
+            },
+            toString: function () {
+                return this.type + " number of legs: " + this.legs;
+            }
+        });
+        var animals = [
+			new Animal("Spider", 2),
+			new Animal("Spider",4),
+			new Animal("Ladybird", 2),
+			new Animal("Bird", 2),
+			new Animal("Tiger", 8)
+		];
+		
+        var sum = _.reduce(animals, function(memo, num){
+            return memo + num.legs}, 0);
+		console.log("Total number of legs: ")
+        console.log(sum);        
+    </script>
+</body>
+</html>

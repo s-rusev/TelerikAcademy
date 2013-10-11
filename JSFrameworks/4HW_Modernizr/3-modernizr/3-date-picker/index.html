@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Date picker polyfill</title>
+    <script src="jquery-1.10.2.js"></script>
+    <script src="jquery-ui-1.10.3.js"></script>
+    <script src="modernizr-2.6.2.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+            Modernizr.load({
+                test: Modernizr.inputtypes.date,
+                nope: 'datepicker.js'
+            })
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css"/>
+</head>
+<body>
+    <div>Focus to show date picker.</div>
+    <input type="date" id="date-picker"/>
+</body>
+</html>

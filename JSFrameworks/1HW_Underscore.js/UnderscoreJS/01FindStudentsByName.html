@@ -1,0 +1,47 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Find students</title>
+    <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+        var Student = Class.create(
+            {
+                init: function (fname, lname)
+                {
+                    this.fname = fname;
+                    this.lname = lname;
+                },
+                toString: function () {
+                    return this.fname + " " + this.lname;
+                }
+            });
+            
+        var students = [
+			new Student("Doncho", "Minkov"),
+			new Student("Joro", "Georgiev"),
+			new Student("Niki", "Kostov"),
+			new Student("Svetlin", "Nakov"),
+			new Student("Ivaylo", "Kendov")
+		];
+        
+        var filteredStudents = _.filter(students, function (student) {
+            return student.fname < student.lname;
+        });
+        
+        var sorted = _.sortBy(filteredStudents, function (student) {
+            return student.toString();
+        });
+
+        sorted.reverse();
+		
+		console.log("Students filtered:");
+        _.each(sorted, function (item) {
+            console.log(item.toString());
+        })
+    </script>
+</body>
+</html>

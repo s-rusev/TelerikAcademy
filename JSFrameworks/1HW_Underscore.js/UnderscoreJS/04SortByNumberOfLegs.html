@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sort by number of legs</title>
+     <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+        var Animal = Class.create({
+            init: function (type, legs) {
+                this.type = type;
+                this.legs = legs;
+            },
+            toString: function () {
+                return this.type + " number of legs: " + this.legs;
+            }
+        });
+        var animals = [
+			new Animal("Spider", 18),
+			new Animal("Spider",48),
+			new Animal("Spider", 21),
+			new Animal("Bird", 2),
+			new Animal("Bird", 8)
+		];
+       
+        var sortedAnimals = _.sortBy(animals, "legs");
+        var groupedAnimals = _.groupBy(sortedAnimals, "type");
+
+		console.log("Sorted by number of legs: ");
+        _.each(groupedAnimals, function (animal) {
+            console.log(animal.toString());
+        })
+
+    </script>
+
+</body>
+</html>

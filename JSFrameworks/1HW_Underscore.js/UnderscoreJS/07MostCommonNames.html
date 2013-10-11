@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Most common first name</title>
+    <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+        var Person = Class.create(
+            {
+                init: function (fname, lname) {
+                    this.fname = fname;
+                    this.lname = lname;
+                },
+                toString: function () {
+                    return this.fname + " " + this.lname;
+                }
+            });
+
+        var people = [
+			new Person("Doncho", "Minkov"),
+			new Person("Joro", "Kendov"),
+			new Person("Ivaylo", "Kendov"),
+			new Person("Svetlin", "Nakov"),
+			new Person("Joro", "Kendov")
+		];
+
+        var mostCommonFirstName = _.chain(people)
+             .countBy(function (a) { return a.fname; })
+                 .invert()
+                     .max(function (value, key) { return key; })
+                         .value();
+
+		console.log("Most common first name: ")
+        console.log(mostCommonFirstName);
+
+        var mostCommonLastName = _.chain(people)
+             .countBy(function (a) { return a.lname; })
+                 .invert()
+                     .max(function (value, key) { return key; })
+                         .value();
+
+		console.log("Most common last name: ")
+        console.log(mostCommonLastName);
+    </script>
+</body>
+</html>

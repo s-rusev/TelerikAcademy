@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students.Service", "Students.Service\Students.Service.csproj", "{0924B470-A8A5-4A8A-9BA3-2C35835A5B74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Students.Client", "Students.Client\Students.Client.csproj", "{E3E3F86D-9C25-4FE7-A608-9EA946B67A69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComboBox", "ComboBox\ComboBox.csproj", "{B680FD77-A80D-4E81-8F1A-171AA206B25F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0924B470-A8A5-4A8A-9BA3-2C35835A5B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0924B470-A8A5-4A8A-9BA3-2C35835A5B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0924B470-A8A5-4A8A-9BA3-2C35835A5B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0924B470-A8A5-4A8A-9BA3-2C35835A5B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E3F86D-9C25-4FE7-A608-9EA946B67A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E3F86D-9C25-4FE7-A608-9EA946B67A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E3F86D-9C25-4FE7-A608-9EA946B67A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E3F86D-9C25-4FE7-A608-9EA946B67A69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B680FD77-A80D-4E81-8F1A-171AA206B25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B680FD77-A80D-4E81-8F1A-171AA206B25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B680FD77-A80D-4E81-8F1A-171AA206B25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B680FD77-A80D-4E81-8F1A-171AA206B25F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

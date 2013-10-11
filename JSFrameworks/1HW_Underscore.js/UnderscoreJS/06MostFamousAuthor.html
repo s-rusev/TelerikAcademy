@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Most famous author</title>
+    <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+        var Book = Class.create({
+            init: function (title, author) {
+                this.title = title;
+                this.author = author;
+            },
+            toString: function () {
+                return this.title + " author: " + this.author;
+            }
+        });
+        var books = [
+			new Book("Book1", "Author1"),
+			new Book("Book2", "Author2"),
+			new Book("Book3", "Author3"),
+			new Book("Book4", "Author4")
+		];
+
+        var mostFamousAuthor = _.chain(books)
+            .countBy(function (a) { return a.author; })
+                .invert()
+                    .max(function (value, key) { return key; })
+                        .value();
+						
+		console.log("Most famous author: ")
+        console.log(mostFamousAuthor);
+    </script>
+</body>
+</html>

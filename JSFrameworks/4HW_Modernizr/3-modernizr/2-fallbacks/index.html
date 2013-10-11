@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Fallbacks demo</title>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/modernizr-2.6.2.js"></script>
+    <script src="Scripts/excanvas.js"></script>
+</head>
+<body>
+    <div id="content">
+    </div>
+
+    <div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="localstorage"></div>
+
+    <script>
+        Modernizr.load({
+            test: Modernizr.geolocation,
+            yep: 'Scripts/geo.js',
+            nope: 'Scripts/geo-polyfill.js'
+        });
+
+        Modernizr.load({
+            test: Modernizr.canvas,
+            yep: 'Scripts/canvas.js',
+            nope: ['Scripts/excanvas.js', 'Scripts/canvas-polyfill.js']
+            });
+
+        Modernizr.load({
+            test: Modernizr.localstorage,
+            yep: "Scripts/localstorage.js",
+            nope: "Scripts/localstorage-polyfill.js"
+        });
+
+    </script>
+</body>
+</html>

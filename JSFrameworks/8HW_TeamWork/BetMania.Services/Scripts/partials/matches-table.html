@@ -1,0 +1,31 @@
+﻿<select id="matches-type-select">
+    <option value="0">all</option>
+    <option value="1">up-comming</option>
+    <option value="2">in-progress</option>
+    <option value="3">finished</option>
+</select>
+
+<input id="matches-category-select" />
+
+<a class="button" id="matches-update-button" data-bind="click: updateMatches">Update</a>
+
+<table class="matches"  id="all-matches" data-bind="source: matches" data-template="single-row-template">
+    <thead>
+        <tr>
+            <th>Start time</th>
+            <th>Home</th>
+            <th>Result</th>
+            <th>Away</th>
+        </tr>
+    </thead>
+    <tbody>
+        <script type="text/x-kendo-template" id="single-row-template">
+            <tr data-id="#: id #" data-bind = "click: goToMatch">
+                <td class="match-date">#: startTime #</td>
+                <td class="match-home">#: home #</td>
+                <td class="match-result" >#: homeScore # : #: awayScore #</td>
+                <td class="match-away">#: away #</td>
+            </tr>
+        </script>
+    </tbody>
+</table>

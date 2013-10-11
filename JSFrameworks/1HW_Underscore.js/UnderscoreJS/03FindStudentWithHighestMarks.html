@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Find students with highest marks</title>
+    <script src="Scripts/class.js"></script>
+	<script src="Scripts/underscore.js"></script>
+</head>
+<body>
+	<h1>Check the console :)</h1>
+    <script>
+        var Student = Class.create({
+            init: function (fname, lname, marks, totalResult) {
+                this.fname = fname;
+                this.lname = lname;
+                this.marks = marks;
+            },
+            toString: function () {
+                return this.fname + " " + this.lname;
+            }
+        });
+        var students = [
+			new Student("Doncho", "Minkov", [4, 3, 5]),
+			new Student("Joro", "Georgiev", [3, 4, 2]),
+			new Student("Niki", "Kostov", [2, 3, 5]),
+			new Student("Svetlin", "Nakov", [3, 2, 6]),
+			new Student("Ivaylo", "Kendov", [6, 6, 5])
+		];
+
+        var studentHighestMark = _.max(students, function (student) {
+            return _average(student.marks);
+        });
+
+        function _average(arr) {
+            return _.reduce(arr, function (memo, num) {
+                return memo + num;
+            }, 0) / arr.length;
+        }
+
+		console.log("Student with highest mark:");
+        console.log(studentHighestMark);
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<div id="interface-wrapper">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#/forum">Forum JS SPA</a>
+                <button id="logout-button" class="btn btn-danger pull-right">Logout <span id="displayName"></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="span4">
+        <h3>Create a post</h3>
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" name="postTitle" />
+        <label for="postContent">Content</label>
+        <input type="text" id="postContent" name="postContent" />
+        <label for="postTags">Tags</label>
+        <input type="text" id="postTags" name="postTags" />
+        <button id="createPostButton">Create post</button>
+    </div>
+
+    <div class="span8">
+        <h3>
+            <a href="#/posts">Get All posts</a>
+        </h3>
+        <div id="posts-container" class="well"></div>
+    </div>
+
+</div>

@@ -1,0 +1,22 @@
+﻿.post {
+    margin: 10px;
+    border: 1px solid black;
+}
+
+#interface-wrapper a {
+    font-size: 20px;
+}
+
+#posts-container {
+    margin-left: 20px;
+}
+
+#singlePostContainer h2 {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#singlePostContainer textarea {
+    height: 50px;
+    width: 100%;
+}
