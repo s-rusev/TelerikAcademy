@@ -1,0 +1,231 @@
+_______________________________________
+4.
+
+SELECT * 
+FROM Departments
+
+_______________________________________
+5.
+
+SELECT Name
+FROM Departments
+
+_______________________________________
+6.
+
+
+SELECT Salary
+FROM Employees
+
+
+_______________________________________
+7.
+
+
+SELECT FirstName + ' ' + MiddleName + ' ' + LastName 
+FROM Employees
+
+
+_______________________________________
+8.
+
+
+SELECT FirstName + '.' + LastName + '@telerik.com' AS [Full Email Addresses]
+FROM Employees
+
+
+_______________________________________
+9.
+
+
+
+SELECT DISTINCT Salary
+FROM Employees
+
+
+_______________________________________
+10.
+
+
+
+SELECT * 
+FROM Employees e
+WHERE e.JobTitle = 'Sales Representative'
+
+
+
+_______________________________________
+11.
+
+
+
+SELECT * 
+FROM Employees e
+WHERE e.FirstName LIKE 'SA%'
+
+
+_______________________________________
+12.
+
+
+
+SELECT * 
+FROM Employees e
+WHERE e.LastName LIKE '%ei%'
+
+
+
+_______________________________________
+13.
+
+
+
+SELECT Salary 
+FROM Employees e
+WHERE e.Salary BETWEEN 20000 AND 30000
+
+
+
+_______________________________________
+14.
+
+
+
+SELECT Salary 
+FROM Employees e
+WHERE e.Salary IN (25000, 14000, 12500, 23600)
+
+
+_______________________________________
+15.
+
+
+SELECT *
+FROM Employees e
+WHERE e.ManagerID IS NULL
+
+
+_______________________________________
+16.
+
+//more than 50000, e.g. >
+
+SELECT *
+FROM Employees e
+WHERE e.Salary > 50000
+ORDER BY e.Salary DESC
+
+
+_______________________________________
+17.
+
+
+SELECT TOP 5 Salary 
+FROM Employees e
+ORDER BY e.Salary DESC
+
+
+_______________________________________
+18.
+
+
+SELECT 
+	e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS Name, 
+	a.AddressText AS Address
+FROM Employees e
+INNER JOIN Addresses a
+ON e.AddressID = a.AddressID
+
+
+_______________________________________
+19.
+
+
+SELECT 
+	e.FirstName + ' ' + e.MiddleName + ' ' + e.LastName AS Name, 
+	a.AddressText AS Address
+FROM Employees e, Addresses a
+WHERE e.AddressID = a.AddressID
+
+
+_______________________________________
+20.
+
+
+SELECT 
+m.FirstName  + ' ' + m.LastName AS Manager,
+e.FirstName + ' ' + e.LastName AS Name
+
+FROM Employees e
+LEFT OUTER JOIN Employees m
+ON e.ManagerID = m.EmployeeID
+
+
+_______________________________________
+21.
+
+
+SELECT
+	managers.FirstName + ' ' + managers.LastName AS Manager,
+	employees.FirstName + ' ' + employees.LastName AS [Employee Name],
+	a.AddressText AS [Employee Address]
+FROM Employees employees
+JOIN Employees managers ON employees.ManagerID = managers.EmployeeID
+JOIN Addresses a ON employees.AddressID = a.AddressID
+ORDER BY Manager
+
+
+_______________________________________
+
+22.
+
+SELECT Name FROM Departments
+UNION 
+SELECT Name FROM Towns
+
+
+_______________________________________
+
+23.1
+
+SELECT 
+	emp.FirstName + ' ' + emp.LastName AS EmployeeName,
+	m.FirstName + ' ' + m.LastName AS Manager
+FROM Employees m
+RIGHT JOIN Employees emp ON emp.ManagerID = m.EmployeeID
+
+_______________________________________
+
+23.2
+
+SELECT 
+	emp.FirstName + ' ' + emp.LastName AS EmployeeName,
+	m.FirstName + ' ' + m.LastName AS Manager
+FROM Employees emp
+LEFT JOIN Employees m ON emp.ManagerID = m.Employe
+
+
+_______________________________________
+
+24.
+//Originally with Finance but changed with Production to demonstrate it's working :)
+
+SELECT 
+	emp.FirstName + ' ' + emp.LastName AS EmployeeName,
+	d.Name,
+	emp.HireDate
+FROM Employees emp
+JOIN Departments d ON emp.DepartmentID = d.DepartmentID
+WHERE (d.Name IN ('Sales', 'Production')) AND ((YEAR(emp.HireDate) BETWEEN 1995 AND 2000))
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<catalogue xmlns:catalogue="urn:catalogue">
+  <album>
+    <name>Systematic Chaos</name>
+    <artist>Dream Theater Old</artist>
+    <year>2007</year>
+    <producer>John Petrucci</producer>
+    <price>20</price>
+    <song>
+      <title>Forsaken</title>
+      <duration>5</duration>
+    </song>
+    <song>
+      <title>Constant Motion</title>
+      <duration>6</duration>
+    </song>
+    <song>
+      <title>The Dark Eternal Night</title>
+      <duration>10</duration>
+    </song>
+  </album>
+  <album>
+    <name>Systematic Chaos</name>
+    <artist>Dream Theater Old</artist>
+    <year>2007</year>
+    <producer>John Petrucci</producer>
+    <price>20</price>
+    <song>
+      <title>Forsaken</title>
+      <duration>5</duration>
+    </song>
+    <song>
+      <title>Constant Motion</title>
+      <duration>6</duration>
+    </song>
+    <song>
+      <title>The Dark Eternal Night</title>
+      <duration>10</duration>
+    </song>
+  </album>
+  <album>
+    <name>On The Backs Of Angels</name>
+    <artist>Dream Theater</artist>
+    <year>2011</year>
+    <producer>John Petrucci</producer>
+    <price>21</price>
+    <song>
+      <title>On The Backs Of Angels</title>
+      <duration>10</duration>
+    </song>
+    <song>
+      <title>Build Me Up, Break Me Down</title>
+      <duration>15</duration>
+    </song>
+    <song>
+      <title>Lost Not Forgotten</title>
+      <duration>8</duration>
+    </song>
+  </album>
+</catalogue>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<catalogue xmlns:catalogue="urn:catalogue">
+  <album>
+    <name>Systematic Chaos</name>
+    <artist>Dream Theater Old</artist>
+    <year>2007</year>
+    <producer>John Petrucci</producer>
+    <price>20</price>
+    <song>
+      <title>Forsaken</title>
+      <duration>5</duration>
+    </song>
+    <song>
+      <title>Constant Motion</title>
+      <duration>6</duration>
+    </song>
+    <song>
+      <title>The Dark Eternal Night</title>
+      <duration>10</duration>
+    </song>
+  </album>
+  <album>
+    <name>Systematic Chaos</name>
+    <artist>Dream Theater Old</artist>
+    <year>2007</year>
+    <producer>John Petrucci</producer>
+    <price>20</price>
+    <song>
+      <title>Forsaken</title>
+      <duration>5</duration>
+    </song>
+    <song>
+      <title>Constant Motion</title>
+      <duration>6</duration>
+    </song>
+    <song>
+      <title>The Dark Eternal Night</title>
+      <duration>10</duration>
+    </song>
+  </album>
+</catalogue>
