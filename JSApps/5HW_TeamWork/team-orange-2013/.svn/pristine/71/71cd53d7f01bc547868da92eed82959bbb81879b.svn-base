@@ -1,0 +1,23 @@
+gameObjects.Enemy = function(x, y) {
+    gameObjects.GameObject.call(this, x, y, 50, 50, true, true, 2);
+    this.direction = "left";
+    this.element.style.backgroundImage = "url(images/enemy.png)";
+    this.element.style.width = this.width + "px";
+    this.element.style.height = this.height + "px";
+    this.element.style.display = "block";
+    this.shieldIndicator.style.left = "15px";
+};
+
+gameObjects.Enemy.inherit(gameObjects.GameObject);
+
+gameObjects.Enemy.prototype.update = function () {
+    this.x -= 10;
+    var max = this.y + 5;
+    var min = this.y - 10;
+    this.y = Math.random() * (max - min) + min;
+    
+    this.element.style.left = this.x + "px";
+    this.element.style.top = this.y + "px";
+    this.keepWithinGameField();
+}
+

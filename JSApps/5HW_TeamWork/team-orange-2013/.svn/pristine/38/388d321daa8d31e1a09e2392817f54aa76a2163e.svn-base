@@ -1,0 +1,281 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObjects = (function () {
+    var tankSelf = null,
+        fieldSize = null,
+        fieldContainer = null;
+
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+
+    // Objects need to know field size in order to keep within
+    function setFieldSize(width, height) {
+        fieldSize = {
+            WIDTH: width,
+            HEIGHT: height
+        };
+    }
+
+    function setContainer(container){
+        fieldContainer = container;
+    }
+    
+    // Abstract class, representing game objects
+    function GameObject(x, y, destroyable, movable, shieldPower) {
+        this.x = x;
+        this.y = y;
+        this.destroyable = destroyable;
+        this.movable = movable;
+        this.isDestroyed = false;
+        this.shieldPower = shieldPower;
+        this.fullShieldPower = shieldPower;
+        this.element = document.createElement("div");
+        this.element.style.position = "absolute"; 
+        this.element.style.left = x + "px";
+        this.element.style.top = y + "px";
+        // Moved here, because all objects must be apended
+        if (fieldContainer !== null) {
+            fieldContainer.appendChild(this.element);
+        }
+        
+        if (shieldPower > 0) {
+            this.setShieldIndicator();
+        }
+        
+    }
+
+    GameObject.prototype.setShieldIndicator = function() {
+        var shieldProgress = document.createElement("div"),
+            shieldContainer = document.createElement("div");
+    
+        shieldProgress.style.position = "absolute";
+        shieldProgress.style.left = "0px";
+        shieldProgress.style.top = "-10px";
+        shieldProgress.style.width = "20px";
+        shieldProgress.style.height = "5px";
+        shieldProgress.style.backgroundColor = "orange";
+        shieldContainer.style.position = "relative";
+        shieldContainer.appendChild(shieldProgress);
+        this.element.appendChild(shieldContainer);
+        this.shieldIndicator = shieldProgress;
+   }
+
+    GameObject.prototype.update = function () {
+        throw new Error("Update method not implemented");
+    }
+
+    GameObject.prototype.onCollision = function() {
+        if (this.destroyable) {
+            this.shieldPower--;
+            if (this.shieldPower < 0) {
+                this.isDestroyed = true;
+                var jQueryElement = jQuery(this.element);
+                jQueryElement.effect("explode", function() {
+                    jQueryElement.remove();
+                });
+            } else {
+                this.shieldIndicator.style.width = 20 - (20 / this.fullShieldPower * (this.fullShieldPower - this.shieldPower)) + "px";
+            }
+        }
+    }
+
+    GameObject.prototype.keepWithinGameField = function() {
+        if (fieldSize !== null) {
+            if (this.x < 0) {
+                this.x = fieldSize.WIDTH;
+            }
+            if (this.x > fieldSize.WIDTH) {
+                this.x = 0;
+            }
+            if (this.y < 0) {
+                this.y = fieldSize.HEIGHT;
+            }
+            if (this.y > fieldSize.HEIGHT) {
+                this.y = 0;
+            }
+        } else {
+            throw new Error("Unknown game field size. Please use setFieldSize() to set it.");
+        }
+    }
+
+    function Tank(x, y) {
+        // This makes Tank Singleton
+        if (tankSelf !== null) {
+            throw new Error("Duplicate instance");
+        }
+        GameObject.call(this, x, y, true, true, 5);
+        tankSelf = this;
+        this.direction = "stop";
+        this.lastDirection = "right";
+        this.element.style.backgroundImage = "url(images/tank-right.png)";
+        this.element.style.width = "50px";
+        this.element.style.height = "25px";
+        this.element.style.display = "block";
+        this.shieldIndicator.style.left = "8px";
+        this.bullets = [];
+    }
+
+    Tank.inherit(GameObject);
+
+    Tank.prototype.changeDirection = function (evt) {
+        tankSelf.lastDirection = tankSelf.direction;
+        tankSelf.direction = evt.direction;
+        switch (evt.direction) {
+            case "left":
+                tankSelf.element.style.backgroundImage = "url(images/tank-left.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                tankSelf.shieldIndicator.style.left = "23px";
+                break;
+            case "right":
+                tankSelf.element.style.backgroundImage = "url(images/tank-right.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                tankSelf.shieldIndicator.style.left = "8px";
+                break;
+            case "up":
+                tankSelf.element.style.backgroundImage = "url(images/tank-up.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                tankSelf.shieldIndicator.style.left = "2px";
+                break;
+            case "down":
+                tankSelf.element.style.backgroundImage = "url(images/tank-down.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                tankSelf.shieldIndicator.style.left = "2px";
+                break;
+            default:
+
+        }
+    }
+
+    Tank.prototype.update = function () {
+        switch (tankSelf.direction) {
+            case "right":
+                tankSelf.x += 10;
+                tankSelf.element.style.left = tankSelf.x + "px";
+                break;
+            case "left":
+                tankSelf.x -= 10;
+                tankSelf.element.style.left = tankSelf.x + "px";
+                break;
+            case "up":
+                tankSelf.y -= 10;
+                tankSelf.element.style.top = tankSelf.y + "px";
+                break;
+            case "down":
+                tankSelf.y += 10;
+                tankSelf.element.style.top = tankSelf.y + "px";
+                break;
+            default:
+        }
+        
+        tankSelf.keepWithinGameField();
+        tankSelf.updateBullets();
+    }
+
+    Tank.prototype.updateBullets = function() {
+        // updating bullets
+        for (var i = 0, len = tankSelf.bullets.length; i < len; i += 1) {
+            if (tankSelf.bullets[i]) {
+                if (tankSelf.bullets[i].isDestroyed) {
+                    tankSelf.bullets.splice(i, 1);
+                } else {
+                    tankSelf.bullets[i].update();
+                }
+            }
+        }
+    }
+
+    Tank.prototype.fire = function () {
+        var bullet;
+        var bulletDirection;
+        if (tankSelf.direction === "stop") {
+            bulletDirection = tankSelf.lastDirection;
+        } else {
+            bulletDirection = tankSelf.direction;
+        }
+        switch (bulletDirection) {
+            case "right":
+                bullet = new Bullet(tankSelf.x + 55, tankSelf.y + 9, bulletDirection, "orange");
+                break;
+            case "left":
+                bullet = new Bullet(tankSelf.x - 12, tankSelf.y + 7, bulletDirection, "orange");
+                break;
+            case "up":
+                bullet = new Bullet(tankSelf.x + 9, tankSelf.y - 12, bulletDirection, "orange");
+                break;
+            case "down":
+                bullet = new Bullet(tankSelf.x + 7, tankSelf.y + 55, bulletDirection, "orange");
+                break;
+            default:
+        }
+        tankSelf.bullets.push(bullet);
+    }
+
+    function Bullet(x, y, direction, color) {
+        GameObject.call(this, x, y, true, true, 0);
+        this.direction = direction;
+        this.element.style.width = "8px";
+        this.element.style.height = "8px";
+        this.element.style.backgroundColor = color;
+        this.element.style.display = "block";
+        this.element.style.borderRadius = "50%";
+        this.element.style.textAlign = "center";
+    }
+
+    Bullet.inherit(GameObject);
+
+    Bullet.prototype.update = function () {
+        //TODO: collision detection will be using differences between
+        //old and new coordinates
+        switch (this.direction) {
+            case "right":
+                this.x += 20;
+                this.element.style.left = this.x + "px";
+                break;
+            case "left":
+                this.x -= 20;
+                this.element.style.left = this.x + "px";
+                break;
+            case "up":
+                this.y -= 20;
+                this.element.style.top = this.y + "px";
+                break;
+            case "down":
+                this.y += 20;
+                this.element.style.top = this.y + "px";
+                break;
+            default:
+        }
+        if (!this.isInGameField()) {
+            this.isDestroyed = true;
+            fieldContainer.removeChild(this.element);
+        }
+    }
+
+    Bullet.prototype.isInGameField = function() {
+        var result = true;
+        if (this.x < 0 || this.x > fieldSize.WIDTH || this.y < 0 || this.y > fieldSize.HEIGHT) {
+            result = false;
+        }
+    
+        return result;
+    }
+
+    return {
+        Tank: Tank,
+        setFieldSize: setFieldSize,
+        setContainer: setContainer
+    };
+}());

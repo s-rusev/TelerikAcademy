@@ -1,0 +1,35 @@
+function GameEvent(shouldRun, action) {
+    this.shouldRun = shouldRun;
+    this.action = action;
+}
+
+GameEvent.prototype.maybeRun = function(game) {
+
+    if (!shouldRun(game))
+        return false;
+        
+    action(game);
+    return true;
+    
+};
+
+GameEvent.createEventAt = function(when, action) {
+
+    return new GameEvent(function(game) {
+        return (game.time === when);
+    }, action);
+    
+};
+
+GameEvent.createEventPeriodic = function(first, period, times, action) {
+    
+    return new GameEvent(function(game) {
+        if (times) {
+            if (times <= 0)
+                return false;
+            times -= 1;
+        }
+        return (((game.time - first) % period) == 0);
+    }, action);
+    
+};

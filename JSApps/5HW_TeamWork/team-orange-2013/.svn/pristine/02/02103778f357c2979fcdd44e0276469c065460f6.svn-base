@@ -1,0 +1,116 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Ship
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+
+    var FIELD_WIDTH = 1000;
+    var FIELD_HEIGHT = 550;
+    var UPDATE_INTERVAL = 100;
+    
+    var intervalId;  
+        
+    var objects = [];
+    var level = undefined;
+    var playerPawn = undefined;
+    
+    this.time = 0;
+
+    objectCollisionDetect = function() {
+    
+        for (j = 0; j < objects.length; j++) {
+        
+            for (k = j + 1; k < objects.length; k++) {
+            
+                if (utils.rectanglesMeet(objects[j].getRectangle(),
+                                         objects[k].getRectangle())) {
+                    
+                    objects[j].onCollision(objects[k]);
+                    objects[k].onCollision(objects[j]);
+                    
+                } 
+                
+            }
+            
+        }
+    };
+
+    update = function() {
+    
+        time += UPDATE_INTERVAL;
+        
+        objectCollisionDetect();
+        
+        for (i = 0; i < objects.length; i++) {
+            if (objects[i].isDestroyed) {
+                objects.splice(i, 1);
+            } else {
+                objects[i].update();
+            }
+        }
+        
+    };
+
+    
+
+    function start() {
+    
+        $("#container").css(gameFieldStyle = {
+            'width': FIELD_WIDTH,
+            'height': FIELD_HEIGHT
+        });
+    
+        //TODO: make it work
+        gameObjects.setFieldSize(FIELD_WIDTH, FIELD_HEIGHT);
+        gameObjects.fieldContainer = document.querySelector("#container");
+        var aShip = new gameObjects.Ship(100, 100);
+        
+        // May be adding in a cycle is better
+        var enemy1 = new gameObjects.ShootingEnemy(200, 500);
+        var enemy2 = new gameObjects.ShootingEnemy(400, 400);
+        var enemy3 = new gameObjects.ShootingEnemy(500, 500);
+        var enemy4 = new gameObjects.ShootingEnemy(250, 100);
+        var enemy5 = new gameObjects.Enemy(350,200);
+        
+        objects.push(aShip);
+        objects.push(enemy1);
+        objects.push(enemy2);
+        objects.push(enemy3);
+        objects.push(enemy4);
+        objects.push(enemy5);
+        
+        // This method can set shooting timeout for the tank. Min. 300 ms, default 1000 ms.
+//      ui.setShootTimeout(500);
+        // This method turns fast shoot on and off
+//      ui.setFastShoot(true);
+        intervalId = setInterval(update, UPDATE_INTERVAL);
+        // Attach custom events start
+        $(document).ready(function () {
+            $("body").on("moveCommand", function(e) { aShip.moveCommand(e); });
+            $("body").on("executeCommand", function (e) {
+                switch (e.command) {
+                    case "fire":
+                        aShip.fire();
+                        break;
+                    case "quit":
+                        clearInterval(intervalId);
+                        break;
+                    case "pause":
+                        alert("Game paused! Press OK to continue.");
+                        break;
+                    default:
+                    
+                }
+            });
+        });
+        // Attach custom events end
+    }
+    // fake start
+    start();
+    return {
+        start : start
+    }
+}());

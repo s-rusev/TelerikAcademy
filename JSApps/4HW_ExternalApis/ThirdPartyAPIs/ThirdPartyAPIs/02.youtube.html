@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Google+ and YouTube APIs</title>
+    <link href="styles/02.youtube.css" rel="stylesheet" />
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script');
+            po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://plus.google.com/js/client:plusone.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+    <script src="scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="scripts/02.youtube.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="gConnect">
+            <button class="g-signin"
+                data-scope="https://www.googleapis.com/auth/plus.login"
+                data-requestvisibleactions="http://schemas.google.com/AddActivity"
+                data-clientid="169309597603-hvs97c1k21705tn3t9406eu315c280m4.apps.googleusercontent.com"
+                data-callback="onSignInCallback"
+                data-theme="dark"
+                data-cookiepolicy="single_host_origin">
+            </button>
+        </div>
+        <div id="profile"></div>
+        <div id="authOps" style="display: none">
+            <h2>User is now signed in with Google+</h2>
+            <button id="disconnect">Disconnect your Google account from this app</button>
+        </div>
+
+        <div id="YouTube" style="display: none">
+            <div id="player"></div>
+            <br />
+            <span>ID: </span>
+            <input type="text" id="load-video" value="TnnBpnVn1ck" />
+            <button id="single-video">Load video</button>
+            <button id="pause">Pause video</button>
+            <button id="play">Play video</button>
+            <button id="mute">Mute video</button>
+            <button id="unmute">Unmute video</button>
+            <input type="range" id="volume" min="0" max="100" value="100" />
+            <br />
+            <span>Playlist: </span>
+            <textarea id="playlist">PHU-AJTn0I8,eXqPYte8tvc,Ddn4MGaS3N4</textarea>
+            <button id="load-playlist">Load playlist</button>
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
+
+            <div id="gplus">
+                <div class="g-plusone" data-href="http://www.youtube.com/watch?feature=player_embedded&v=PHU-AJTn0I8"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var player;
+        var videoURL;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '390', //must be bigger than 200px
+                width: '640', //must be bigger than 200px
+                videoId: 'nY7GnAq6Znw',
+                events: {
+                    'onReady': onPlayerReady,
+                }
+            });
+
+            console.log(player);
+        }
+
+        function onPlayerReady(event) {
+            event.target.pauseVideo();
+            videoURL = player.getVideoUrl();
+        }
+
+        document.getElementById('single-video').addEventListener('click', function () {
+            var video = document.getElementById('load-video').value;
+
+            player.loadVideoById(video, 0, "large");
+        }, false);
+
+        document.getElementById('pause').addEventListener('click', function () {
+            player.pauseVideo();
+        }, false);
+
+        document.getElementById('play').addEventListener('click', function () {
+            player.playVideo();
+        }, false);
+
+        document.getElementById('mute').addEventListener('click', function () {
+            player.mute();
+        }, false);
+
+        document.getElementById('unmute').addEventListener('click', function () {
+            player.unMute();
+        }, false);
+
+        document.getElementById('volume').addEventListener('change', function (number) {
+            player.setVolume(number.target.value);
+        }, false);
+
+        document.getElementById('load-playlist').addEventListener('click', function () {
+            var videoPlaylist = document.getElementById('playlist').value.split(',');
+
+            player.loadPlaylist(videoPlaylist, 0, 0, "large");
+        }, false);
+
+        document.getElementById('previous').addEventListener('click', function () {
+            player.previousVideo();
+        }, false);
+
+        document.getElementById('next').addEventListener('click', function () {
+            player.nextVideo();
+        }, false);
+    </script>
+
+    <script type="text/javascript">
+        function onSignInCallback(authResult) {
+            helper.onSignInCallback(authResult);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+=========================
+~~~~~ презентация
+=========================
+
+* requirejs
+
+* factory pattern
+
+* веднага се сещаш нещо къде е
+
+* математически чудеса
+
+=========================
+~~~~~ facebook
+=========================
+
+http://forums.academy.telerik.com/99455/споделяне-на-резултати-във-facebook-facebook-share
+
+=========================
+~~~~~ unit testing
+=========================
+
+- random generator
+- collision detection
+
+=========================
+~~~~~ todo
+=========================
+
+! facebook integration
+! levelling logic
+! enable sounds
+! score board
+! timer
+! more enemies / objects
+    - asteroid
+    - health powerup
+    
+! optimize
+
+- moving background
+- associate events with game objects
+- gameControler.registerEvent
+- ShootingObject
+- move all settings to gameConstants.js
+- remove all the gameControl(l)er arguments
+- move dom manipulation to ui module
+- smooth collision detection
+- acceleration
+
+
+=========================
+~~~~~ workflow
+=========================
+
+* commit - 
+    - update svn copy
+    - merge into git - carefully !
+    - copy into svn
+    - commit
+=========================
+~~~~~ design
+=========================
+
+collision detection
+    we'll never have more than 100 objects on the screen,
+        including bullets
+    naive approach suffices
+    possible optimizations
+        - sort objects by leftmost point
+            - for each object, only check until other object's leftmost points <= own rightmost point
+
+events
+    - object reaches rightmost point
+    
+player ship
+    - shape
+    - primary weapon
+    - secondary weapon
+    
+objects
+    - collision weight
+    - hit points
+    - shape
+        - leftmost point
+        - rightmost point
+    - location
+    - spawning
+    - death
+    - behavior - function of time
+        - motion
+            - trajectory 
+                - function of time
+                - function of player coordinates
+        - shooting
+        - spawning other objects
+        - animation
+        
+level
+    - length
+    - events
+        - occurs(time)
+            - periodic
+            - one-time
+            - with probability
+ 
+
+weapon
+    - splash damage
+    - rate of fire
+    - trajectory
+
+enemies
+    - splits into smaller enemies
+    
+
+=========================
+
+
+People - team-orange-2013 - JavaScript apps course project - Google Project Hosting
+http://code.google.com/p/team-orange-2013/people/list#addmembers
+
+Team Orange
+https://www.facebook.com/groups/140936489433973/141222906071998/?comment_id=141233066070982&notif_t=group_comment

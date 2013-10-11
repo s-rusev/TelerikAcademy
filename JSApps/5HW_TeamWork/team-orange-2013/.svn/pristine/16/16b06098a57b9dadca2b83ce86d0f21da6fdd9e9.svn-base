@@ -1,0 +1,62 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+    //1000 550
+    var gameFieldSize = Object.freeze({
+            WIDTH: 1000,
+            HEIGHT: 550
+        }),
+        intervalId;
+
+    function GameField() {
+        this.width = gameFieldSize.WIDTH;
+        this.height = gameFieldSize.HEIGHT;
+        gameFieldStyle = {
+            'width': this.width,
+            'height': this.height
+        }
+    
+        $("#container").css(gameFieldStyle);
+    }
+
+    function start() {
+        //TODO: make it work
+        var field = new GameField();
+        gameObjects.setFieldSize(gameFieldSize.WIDTH, gameFieldSize.HEIGHT);
+        gameObjects.setContainer(document.querySelector("#container"));
+        var aTank = new gameObjects.Tank(100, 100);
+        // fake just for test must call gameField update
+        intervalId = setInterval(aTank.update, 100);
+        // Attach custom events start
+        $(document).ready(function () {
+            $("body").on("changeDirrection", aTank.changeDirection);
+            $("body").on("executeCommand", function (e) {
+                switch (e.command) {
+                    case "fire":
+                        aTank.fire();
+                        break;
+                    case "quit":
+                        clearInterval(intervalId);
+                        break;
+                    case "pause":
+                        // Just for test simulating collision
+                        aTank.onCollision();
+                        break;
+                    default:
+                    
+                }
+            });
+        });
+        // Attach custom events end
+    }
+    // fake start
+    start();
+    return {
+        start : start
+    }
+}());

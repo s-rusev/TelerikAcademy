@@ -1,0 +1,170 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: User Interface
+ * Author: Stamo Petkov
+ */
+
+var ui = (function() {
+   var Directions = Object.freeze({
+            UP: "up",
+            DOWN: "down",
+            LEFT: "left",
+            RIGHT: "right",
+            STOP: "stop"
+        }),
+        Commands = Object.freeze({
+            FIRE: "fire",
+            QUIT: "quit",
+            PAUSE: "pause"
+        }),
+        Weapons = Object.freeze({
+            BULLETS: "bullets",
+            ROCKETS: "rockets"
+        }),
+        Status = Object.freeze({
+            LOGED: "loged",
+            NOTLOGED: "notloged",
+            ANONIMOUS: "anonimous"
+        }),
+        directionSet = false,
+        bulletFired = false;
+   
+   function User (){
+       this.name = "";
+       this.email = "";
+       this.password = "";
+       this.status = Status.NOTLOGED
+       this.userId = 0;
+       this.tank = {
+           shield: 5,
+           weapon: Weapons.BULLETS
+       };
+       this.level = 1;
+       this.highScore = 0;
+   }
+   
+   User.prototype.login = function(email, password) {
+       
+   };
+   
+   User.prototype.register = function(name, email, password) {
+       
+   };
+   
+   User.prototype.saveTank = function() {
+       
+   };
+   
+   User.prototype.saveHighScore = function() {
+       
+   };
+   
+   function loadHighScore() {
+       
+   }
+   
+   // Attaching event listeners
+    $(document).ready(function() {
+        $("body").on("keydown", getKey);
+    });
+    $(document).ready(function() {
+        $("body").on("keyup", getKeyUp);
+    });
+
+   //This method handles onKeyDown event
+    function getKey(evt) {
+        switch (evt.keyCode) {
+   //Left arrow key, triggers changeDirrection event with direction: LEFT
+            case 37:
+                evt.preventDefault();
+                if (!directionSet) {
+                    $("body").trigger({
+                        type:"changeDirection",
+                        direction: Directions.LEFT
+                    });
+                    directionSet = true;
+                }
+                break;
+   //Up arrow key, triggers changeDirrection event with direction: UP
+            case 38:
+                evt.preventDefault();
+                if (!directionSet) {
+                    $("body").trigger({
+                        type:"changeDirection",
+                        direction: Directions.UP
+                    });
+                    directionSet = true;
+                }
+                break;
+   //Right arrow key, triggers changeDirrection event with direction: RIGHT
+            case 39:
+                evt.preventDefault();
+                if (!directionSet) {
+                    $("body").trigger({
+                        type:"changeDirection",
+                        direction: Directions.RIGHT
+                    });
+                    directionSet = true;
+                }
+                break;
+   //Down arrow key, triggers changeDirrection event with direction: DOWN
+            case 40:
+                evt.preventDefault();
+                if (!directionSet) {
+                    $("body").trigger({
+                        type:"changeDirection",
+                        direction: Directions.DOWN
+                    });
+                    directionSet = true;
+                }
+                break;
+   //Letter "q" pressed, triggers executeCommand event with command: QUIT
+            case 81:
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.QUIT
+                });
+                break;
+   //Letter "p" pressed, triggers executeCommand event with command: PAUSE
+            case 80:
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.PAUSE
+                });
+                break;
+   //Space bar pressed, triggers executeCommand event with command: FIRE
+            case 32:
+                evt.preventDefault();
+                if (!bulletFired) {
+                    $("body").trigger({
+                        type:"executeCommand",
+                        command: Commands.FIRE
+                    });
+                    bulletFired = true;
+                }
+
+                break;
+            default:
+        }
+    }
+
+    function getKeyUp(evt) {
+        if (evt.keyCode === 37 || evt.keyCode === 38 || 
+            evt.keyCode === 39 || evt.keyCode === 40) {
+            evt.preventDefault();
+            $("body").trigger({
+                type:"changeDirection",
+                direction: Directions.STOP
+            });
+            directionSet = false;
+        } else if (evt.keyCode === 32) {
+            bulletFired = false;
+        }
+    }
+    
+    return {
+        User: User,
+        loadHighScore: loadHighScore
+    };
+}());

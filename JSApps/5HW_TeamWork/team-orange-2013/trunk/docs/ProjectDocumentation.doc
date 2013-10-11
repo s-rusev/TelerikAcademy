@@ -1,0 +1,51 @@
+Team project "Orange" documentation
+
+Game "Battle Tank"
+
+Short description of the game:
+
+The player is a moving shooting tank and its goal is to destroy all enemies. The enemies are
+moving space ships (some of them can shoot too). The tank can move in either direction 
+(left, right, up or down) while the enemies move in one direction - from right 
+to left. Both the tank and the enemies can "teleport", meaning that when they reach the end of 
+the game field they appear on the opposite side. Tank has 6 hit points and enemies
+have 3 hit points and each bullet on hit takes away one hit point.
+
+Realisation:
+There are 3 main JavaScript files - ui.js , gameObjects.js and gameControler.js. 
+
+UI:
+This file is responsible for handling the interaction with the user. Each user has
+name, e-mail and password. The application gets the user's input for controling the tank
+by attaching event listeners to onKeyDown and onKeyUp. When the user presses any button 
+the corresponding event is triggered. To get the correct button - the code of the key is checked
+and for example 37, 38, 39, 40 are the key codes for left, up, right, down. The other key codes are:
+'space' for tank shooting, 'q' for quit game and 'p' for pause. High score logic is here.
+
+GameObjects:
+Here are implemented the classes for the game objects (as the name says). The classes are:
+GameObject , inherited by Tank and Enemy ; Shooting enemy, which inherits Enemy and finally 
+tha class Bullet, which is used by shooting objects. Each created object has the update function,
+which is used for the moving and shooting. The GameField is also in the gameObjects - there is a 
+function that set its size and another one for setting the container (the holder in the DOM) for it.
+Each element of the game is a DOM element (we probably sould have used canvas, but we implemented
+it with DOM elements, because of the requirements of the assignment). In order to move an object we
+use the update function, which sets its coordinates, depending on the moving direction.
+
+GameControler:
+The gameField is created here with concrete size and container. The update method of the gameField
+is called at each 100 ms, which calls the update method of all gameObjects created. Collision detection
+is implemented here and if a gameObject is destroyed it is removed from both the array of gameObjects and 
+from the DOM.
+
+Unit Tests:
+The QUnit platform is used for the unit testing of the project. There are tests for correct creation of the
+objects, for correct behaviour of the moving objects.
+
+Further notes:
+The project isn't finished yet. TODO: finish it and make complete documentation.
+
+
+
+
+

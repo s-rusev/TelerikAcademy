@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Insert before and after</title>
+    <style>
+        #middle {
+            background: yellow;
+        }
+    </style>
+    <script src="scripts/jquery-1.10.1.min.js"></script>
+</head>
+<body>
+    <div id="middle">Force</div>
+    <p id="before">May the: </p>
+    <p id="after">Be with you!</p>
+    <script>
+        $("#before").insertBefore("#middle");
+        $("#after").insertAfter("#middle");
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+var SHIP_WIDTH = 60;
+var SHIP_HEIGHT = 60;
+var SHIP_BULLET_OFFSET_X = 55;
+var SHIP_BULLET_OFFSET_Y = SHIP_HEIGHT / 2 - 2;
+
+gameObjects.Ship = function(x, y) {
+    // This makes Ship Singleton
+    gameObjects.GameObject.call(this, x, y, SHIP_WIDTH, SHIP_HEIGHT, true, true, 5);
+    this.direction = "stop";
+    this.baseWidth = this.width;
+    this.baseHeight = this.height;
+    this.element.style.backgroundImage = "url(images/spaceship.png)";
+    this.element.style.width = this.width + "px";
+    this.element.style.height = this.height + "px";
+    this.element.style.display = "block";
+    this.shieldIndicator.style.left = "8px";
+    this.bullets = [];
+};
+
+gameObjects.Ship.inherit(gameObjects.GameObject);
+
+gameObjects.Ship.prototype.moveCommand = function(evt) {
+    this.direction = evt.direction;
+};
+
+gameObjects.Ship.prototype.update = function() {
+
+    switch (this.direction) {
+        case "right":
+            this.x += 10;
+            break;
+        case "left":
+            this.x -= 10;
+            break;
+        case "up":
+            this.y -= 10;
+            break;
+        case "down":
+            this.y += 10;
+            break;
+        default:
+    }
+
+    this.keepWithinGameField();
+    this.updateBullets();
+    
+    this.element.style.left = this.x + "px";
+    this.element.style.top = this.y + "px";
+    
+};
+
+gameObjects.Ship.prototype.updateBullets = function () {
+    // updating bullets
+    for (var i = 0, len = this.bullets.length; i < len; i += 1) {
+        if (this.bullets[i]) {
+            if (this.bullets[i].isDestroyed) {
+                this.bullets.splice(i, 1);
+            } else {
+                this.bullets[i].update();
+            }
+        }
+    }
+};
+
+gameObjects.Ship.prototype.fire = function () {
+    // var gunShot = new Audio("sounds/Cannon.ogg");
+    // gunShot.play();
+    var bullet = new gameObjects.Bullet(this.x + SHIP_BULLET_OFFSET_X, this.y + SHIP_BULLET_OFFSET_Y, "right", "orange");
+    this.bullets.push(bullet);
+};
+
+
+
+
+
+
+
+

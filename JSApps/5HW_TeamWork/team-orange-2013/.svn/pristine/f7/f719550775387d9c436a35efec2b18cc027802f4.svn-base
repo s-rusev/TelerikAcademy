@@ -1,0 +1,6 @@
+function GameLevel(length) {
+    return { 
+        length: length,
+        events: [],
+    };
+}

@@ -1,0 +1,80 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObjects = (function () {
+    var tankSelf;
+    
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+
+    function GameObject(x, y, destroyable, movable) {
+        this.destroyable = destroyable;
+        this.movable = movable;
+        this.element = document.createElement("div");
+        this.element.style.position = "absolute"; //! maybe ;
+        this.element.style.left = x + "px";
+        this.element.style.top = y + "px";
+    }
+
+    GameObject.prototype.update = function () {
+
+    }
+
+    function Tank(x, y) {
+        GameObject.call(this, x, y, true, true);
+        tankSelf = this;
+        this.direction = "stop";
+        this.element.style.backgroundImage = "url(images/tank-right.png)";
+        this.element.style.width = "50px";
+        this.element.style.height = "25px";
+        this.element.style.display = "block";
+        var el = document.querySelector("#container");
+        el.appendChild(this.element);
+    }
+
+    Tank.inherit(GameObject);
+
+    Tank.prototype.changeDirection = function (evt) {
+        tankSelf.direction = evt.direction;
+        switch (evt.direction) {
+            case "left":
+                tankSelf.element.style.backgroundImage = "url(images/tank-left.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                break;
+            case "right":
+                tankSelf.element.style.backgroundImage = "url(images/tank-right.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                break;
+            case "up":
+                tankSelf.element.style.backgroundImage = "url(images/tank-up.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                break;
+            case "down":
+                tankSelf.element.style.backgroundImage = "url(images/tank-down.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                break;
+            default:
+
+        }
+    }
+
+    Tank.prototype.update = function () {
+        
+    }
+
+    return {
+        Tank: Tank
+    };
+}());

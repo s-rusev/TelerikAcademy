@@ -1,0 +1,58 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: User
+ * Author: Stamo Petkov
+ */
+
+var user = (function() {
+    var Weapons = Object.freeze({
+            BULLETS: "bullets",
+            ROCKETS: "rockets"
+        }),
+        Status = Object.freeze({
+            LOGED: "loged",
+            NOTLOGED: "notloged",
+            ANONIMOUS: "anonimous"
+        });
+    
+    function User (){
+       this.name = "";
+       this.email = "";
+       this.password = "";
+       this.status = Status.NOTLOGED;
+       this.userId = 0;
+       this.tank = {
+           shield: 5,
+           weapon: Weapons.BULLETS
+       };
+       this.level = 1;
+       this.highScore = 0;
+   }
+   
+   User.prototype.login = function(email, password) {
+       console.log(email);
+       console.log(password);
+   };
+   
+   User.prototype.register = function(name, email, password) {
+       console.log(name);
+       console.log(email);
+       console.log(password);
+       $("#registerMessage").html("Hello, " + name);
+   };
+   
+   User.prototype.saveTank = function() {
+       
+   };
+   
+   User.prototype.saveHighScore = function() {
+       
+   };
+   
+   return {
+       Player: User
+   }
+   
+}());
+

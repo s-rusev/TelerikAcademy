@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Image slider</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+<body>
+    <div id="image-slider-container"></div>
+    <script src="scripts/prototype-create-extend.js"></script>
+    <script src="scripts/image-slider.js"></script>
+    <script>
+        var image1 = Object.create(Image);
+        image1.init("Guitar-1", "images/guitar-1.jpg", "images/guitar-1.jpg");
+        var image2 = Object.create(Image);
+        image2.init("Guitar-2", "images/guitar-2.jpg", "images/guitar-2.jpg");
+        var image3 = Object.create(Image);
+        image3.init("Guitar-3", "images/guitar-3.jpg", "images/guitar-3.jpg");
+        var image4 = Object.create(Image);
+        image4.init("Guitar-4", "images/guitar-4.jpg", "images/guitar-4.jpg");
+
+        var imageSlider = Object.create(ImageSlider);
+        imageSlider.init([image1, image2, image3, image4]);
+        imageSlider.render("image-slider-container");
+    </script>
+</body>
+</html>

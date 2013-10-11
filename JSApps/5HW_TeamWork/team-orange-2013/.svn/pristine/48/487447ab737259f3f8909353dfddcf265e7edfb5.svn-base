@@ -1,0 +1,77 @@
+var libjs =
+{
+    fill: function(from, to, proto) {
+        proto = proto || false;
+        for (var prop in from) {
+            if (proto || from.hasOwnProperty(prop))
+                to[prop] = from[prop];
+        }
+    },
+    each: function(array, f) {
+        for (var ii = 0; ii < array.length; ++ii) {
+            f(array[ii], ii);
+        }
+    },
+    clear: function(obj) {
+      for (var prop in obj)
+        if (obj.hasOwnProperty(prop))
+          delete obj[prop];
+    },
+    map: function(array, f) {
+      var ret = [];
+      for (var ii = 0; ii < array.length; ++ii) {
+        ret.push(f(array[ii]));
+      }
+      return ret;
+    },
+    skip: function(array, count) {
+      var ret = [];
+      for (var ii = count; ii < array.length; ++ii) {
+        ret.push(array[ii]);
+      }
+      return ret;
+    },
+    any: function(array, f) {
+      var ret = [];
+      for (var ii = 0; ii < array.length; ++ii) {
+          if (f(array[ii]))
+            return true;
+      }
+      return false;
+  }
+};
+
+libjs.init = function() {
+    Array.prototype.map = function() {
+        lijbs.map.apply(this, arguments);
+    };
+    Array.prototype.skip = function() {
+        lijbs.skip.apply(this, arguments);
+    };
+    Array.prototype.each = function() {
+        lijbs.each.apply(this, arguments);
+    };
+    Array.prototype.any = function() {
+        lijbs.any.apply(this, arguments);
+    };
+    Object.prototype.fill = function() {
+        lijbs.fill.apply(this, arguments);
+    };
+    Object.prototype.clear = function() {
+        lijbs.clear.apply(this, arguments);
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

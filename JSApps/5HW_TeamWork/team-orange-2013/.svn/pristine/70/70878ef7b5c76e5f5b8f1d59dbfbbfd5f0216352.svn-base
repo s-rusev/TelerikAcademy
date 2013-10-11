@@ -1,0 +1,6 @@
+gameConstants = Object.freeze({    
+    FIELD_WIDTH_PX: 1000,
+    FIELD_HEIGHT_PX: 550,
+    UPDATE_INTERVAL_MS: 100,
+    DEFAULT_LEVEL_LENGTH_SECONDS: 10
+});

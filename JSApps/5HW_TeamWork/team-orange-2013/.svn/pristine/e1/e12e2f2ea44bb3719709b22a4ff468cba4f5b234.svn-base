@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SpaceBoom - The Game</title>
+        <link href="css/main.css" rel="stylesheet" />
+        <link href="css/jquery-ui.css" rel="stylesheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>SpaceBoom - a game by <span class="orange">Team Orange</span></h1>
+        <section id="container"></section>
+        <aside><span class="orange">Legend / High Score</span></aside>
+        <script src="js/libs/jquery-1.9.1/jquery.js"></script>
+        <script src="js/libs/jqueryui-1.10.3/jquery-ui.js"></script>
+        <script data-main="js/main" src="js/require.js"></script>
+    </body>
+</html>

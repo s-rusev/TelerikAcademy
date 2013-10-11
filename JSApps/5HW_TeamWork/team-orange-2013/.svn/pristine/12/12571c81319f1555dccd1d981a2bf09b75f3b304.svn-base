@@ -1,0 +1,95 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObjects = (function () {
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+
+    function GameObject(x, y, destroyable, movable) {
+        this.destroyable = destroyable;
+        this.movable = movable;
+        this.element = document.createElement("div");
+        this.element.style.position = "absolute"; //! maybe ;
+        this.element.style.left = x + "px";
+        this.element.style.top = y + "px";
+    }
+
+    GameObject.prototype.render = function () {
+
+    }
+
+    GameObject.prototype.update = function () {
+
+    }
+
+    function Tank(x, y) {
+        GameObject.call(this, x, y, true, true);
+        this.direction = "stop";
+        this.element.style.backgroundImage = "../images/tank-right.png";
+        this.element.style.width = "50 px";
+        this.element.style.height = "25 px";
+    }
+
+    Tank.inherit(gameObject);
+
+    Tank.prototype.changeDirection = function (evt) {
+        this.direction = evt.direction;
+        switch (evt.direction) {
+            case "left":
+                this.element.style.backgroundImage = "../images/tank-left.png";
+                this.element.style.width = "50 px";
+                this.element.style.height = "25 px";
+                break;
+            case "right":
+                this.element.style.backgroundImage = "../images/tank-right.png";
+                this.element.style.width = "50 px";
+                this.element.style.height = "25 px";
+                break;
+            case "up":
+                this.element.style.backgroundImage = "../images/tank-up.png";
+                this.element.style.width = "25 px";
+                this.element.style.height = "50 px";
+                break;
+            case "down":
+                this.element.style.backgroundImage = "../images/tank-down.png";
+                this.element.style.width = "25 px";
+                this.element.style.height = "50 px";
+                break;
+            default:
+
+        }
+    }
+
+    //temp render -> must be in gamefield
+    Tank.prototype.render = function () {
+        //$("#container").append();
+        var el = document.querySelector("#container");
+        el.appendChild(this.element);
+    }
+
+    // Game Objects Initialization begin
+    $(document).ready(function () {
+        $("body").on("changeDirrection", function (e) {
+            console.log("Direction is: ", e.direction);
+        });
+        $("body").on("executeCommand", function (e) {
+            console.log("Command is: ", e.command);
+        });
+    });
+    // Game Objects Initialization end
+
+    var aTankTest = new Tank(100, 100);
+    aTankTest.render();
+
+    return {
+
+    };
+}());

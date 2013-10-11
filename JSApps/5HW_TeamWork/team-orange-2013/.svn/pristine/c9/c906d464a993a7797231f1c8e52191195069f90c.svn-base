@@ -1,0 +1,164 @@
+<html>
+<head>
+<title></title>
+<style>
+pre {
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+*
+{
+    font-size: 120%
+}
+</style>
+</head>
+<body>
+<pre>
+Login screen
+
+<h3 id="login">Login screen</h3>
+<img src="pics/login.png" width=600 height=300 />
+- facebook login
+- play as guest - data will be saved on local machine
+- new account
+
+<h3 id="main-menu">Main Menu</h3>
+The game begins with the main menu.
+
+<img src="pics/main-menu.png" width=600 height=300 />
+<a href="#level">New game</a>
+<a href="#load-game">Load game</a>
+<a href="#settings">Settings</a>
+<a href="#high-scores">High scores</a>
+
+<h3 id="load-game">Load game</h3>
+Any time the user starts a new game, it's a new 'career.'
+<img  src="pics/load-game.png" width=600 height=300 />
+- ship info
+- game stats
+
+<h3 id="settings">Settings</h3>
+(optional)
+<a id="settings"></a>
+- keyboard mappings
+    - switching weapons
+    - switching skills
+    - fire
+    - movement
+- music
+- social media - share progress automatically
+
+<h3 id="high-scores">High scores</h3>
+(optional)
+<a id="high-scores"></a>
+- per level
+- up to level
+- overall
+- accuracy
+
+
+<h3 id="level">Game itself</h3>
+
+<img src="pics/level.png" width=600 height=300 />
+
+(dark red is enemies, red is weapons, green is powerups)
+
+1 - normal ships
+
+2 - swarm of little kamikaze enemies
+
+3 - space mine - explodes when touched or hit by weapon
+
+4 - alien ship that splits into smaller ships when hit
+
+5 - juggernaut - doesn't move, hard to kill
+
+6 - money powerup
+
+7 - shields powerup
+
+8 - asteroid - may crash into player, can't be destroyed
+
+9 - secondary weapon - in this case, rocket
+
+Player has primary and secondary weapons. The primary weapons are unlimited, while the secondary weapons can run out of ammo.
+
+Different weapons:
+
+<img src="pics/weapon-1.png" width=600 height=300 />
+
+<img src="pics/weapon-2.png" width=600 height=300 />
+
+<img src="pics/weapon-3.png" width=600 height=300 />
+
+
+<h3 id="upgrade">Upgrade screen</h3>
+
+Once after every leve. 1 point = $1. $ can be spent, but the points themselves remain.
+ 
+<img src="pics/upgrade.png" width=600 height=300 />
+
+    - better ship - smaller, more secondary ammo, better base shields
+    
+    - secondary weapons
+
+    - shields - increases number of points
+    
+    - engines - increase player motion speed
+    
+    - faster rate of fire
+    - skills
+    
+        screen wrap 
+        
+        invulnerability
+        
+        afterburner
+        
+The game is saved after the upgrade screen.
+        
+That's about it!
+</pre>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

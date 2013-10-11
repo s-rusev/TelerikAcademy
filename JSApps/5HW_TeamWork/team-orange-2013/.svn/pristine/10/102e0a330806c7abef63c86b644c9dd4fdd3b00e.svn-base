@@ -1,0 +1,132 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+    //1000 550
+    var gameFieldSize = Object.freeze({
+            WIDTH: 1000,
+            HEIGHT: 550
+        }),
+        intervalId,
+        objectArray = [],
+        gameFieldSelf;        
+
+    function GameField() {
+        gameFieldSelf = this;
+        this.width = gameFieldSize.WIDTH;
+        this.height = gameFieldSize.HEIGHT;
+        gameFieldStyle = {
+            'width': this.width,
+            'height': this.height
+        }
+    
+        $("#container").css(gameFieldStyle);
+    }
+
+    GameField.prototype.bulletsCollisionDetect = function() {
+        for (i = 0; i < objectArray.length; i++) {
+            if (objectArray[i].bullets) {
+                for (j = 0; j < objectArray[i].bullets.length; j++) {
+                    for (k = 0; k < objectArray.length; k++) {
+                        // Be aware of the Dragons!
+                        // Bugfix - there was an error "Can not get x of undefined", so I 
+                        // placed a check if objects are defined. Don't remove it, please :)
+                        if (objectArray[i].bullets[j] && objectArray[k] && 
+                            objectArray[i].bullets[j].x > objectArray[k].x &&
+                            objectArray[i].bullets[j].x < objectArray[k].x + objectArray[k].width && 
+                            objectArray[i].bullets[j].y > objectArray[k].y &&
+                            objectArray[i].bullets[j].y < objectArray[k].y + objectArray[k].height) {
+                            objectArray[k].onCollision();
+                            objectArray[i].bullets[j].onCollision();
+                        } 
+                    }
+                }
+            } 
+        }
+    }
+
+    GameField.prototype.objectCollisionDetect = function() {
+        for (j = 0; j < objectArray.length; j++) {
+            for (k = 0; k < objectArray.length; k++) {
+                if (objectArray[j].x > objectArray[k].x &&
+                    objectArray[j].x < objectArray[k].x + objectArray[k].width && 
+                    objectArray[j].y > objectArray[k].y &&
+                    objectArray[j].y < objectArray[k].y + objectArray[k].height) {
+                    objectArray[k].onCollision();
+                    objectArray[j].onCollision();
+                } 
+            }
+        }
+    }
+
+    GameField.prototype.update = function() {
+        gameFieldSelf.bulletsCollisionDetect();
+        gameFieldSelf.objectCollisionDetect();
+        for (i = 0; i < objectArray.length; i++) {
+            if (objectArray[i].isDestroyed) {
+                if (objectArray[i].bullets && objectArray[i].bullets.length > 0) {
+                    objectArray[i].x = 0;
+                    objectArray[i].y = 0;
+                    objectArray[i].update();
+                } else {
+                    objectArray.splice(i, 1);
+                }
+            } else {
+                objectArray[i].update();
+            }
+        }
+    }
+
+    
+
+    function start() {
+        //TODO: make it work
+        var field = new GameField();
+        gameObjects.setFieldSize(gameFieldSize.WIDTH, gameFieldSize.HEIGHT);
+        gameObjects.setContainer(document.querySelector("#container"));
+        var aTank = new gameObjects.Tank(100, 100);
+        // May be adding in a cycle is better
+        var enemy1 = new gameObjects.ShootingEnemy(200, 500);
+        var enemy2 = new gameObjects.ShootingEnemy(400, 400);
+        var enemy3 = new gameObjects.ShootingEnemy(500, 500);
+        var enemy4 = new gameObjects.ShootingEnemy(250, 100);
+        var enemy5 = new gameObjects.Enemy(350,200);
+        objectArray.push(aTank);
+        objectArray.push(enemy1);
+        objectArray.push(enemy2);
+        objectArray.push(enemy3);
+        objectArray.push(enemy4);
+        objectArray.push(enemy5);
+		
+        intervalId = setInterval(field.update, 100);
+        // Attach custom events start
+        $(document).ready(function () {
+            $("body").on("changeDirection", aTank.changeDirection);
+            $("body").on("executeCommand", function (e) {
+                switch (e.command) {
+                    case "fire":
+                        aTank.fire();
+                        break;
+                    case "quit":
+                        clearInterval(intervalId);
+                        break;
+                    case "pause":
+                        alert("Game paused! Press OK to continue.");
+                        break;
+                    default:
+                    
+                }
+            });
+        });
+        // Attach custom events end
+    }
+    // fake start
+    start();
+    return {
+        start : start
+    }
+}());

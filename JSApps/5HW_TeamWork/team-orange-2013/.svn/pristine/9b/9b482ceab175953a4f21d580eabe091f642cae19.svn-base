@@ -1,0 +1,31 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObject = (function() {
+    
+    // Game Objects Initialization begin
+    $(document).ready(function() {
+        $("body").on("changeDirrection", function(e) {
+            console.log("Direction is: ", e.direction);
+        });
+        $("body").on("executeCommand", function(e) {
+            console.log("Command is: ", e.command);
+        });
+    });
+    // Game Objects Initialization end
+
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+    
+    return {
+        
+    };
+}());

@@ -1,0 +1,54 @@
+test("Game objects creation tests", function () {
+    var tankTest = new gameObjects.Tank(100, 100);
+
+    ok(tankTest.x === 100, "Tank passed x coord test!");
+    ok(tankTest.y === 100, "Tank passed y coord test!");
+    ok(tankTest.destroyable === true, "Tank passed destroyable test test!");
+    ok(tankTest.width === 50, "Tank passed width test!");
+    ok(tankTest.height === 25, "Tank passed height test!");
+    ok(tankTest.direction === "stop", "Tank passed direction test!");
+    ok(tankTest.lastDirection === "right", "Tank passed last direction test!");
+    ok(tankTest.shieldPower === 5, "Tank passed shield power test!");
+
+    //moving test
+    gameObjects.setFieldSize(1000, 550);
+    gameObjects.setContainer(document.querySelector("#container"));
+    tankTest.direction = "right";
+    tankTest.update();
+    ok(tankTest.x === 110, "Tank moving right passed test!");
+
+    tankTest.direction = "left";
+    tankTest.update();
+    ok(tankTest.x === 100, "Tank moving left passed test!");
+
+    tankTest.direction = "up";
+    tankTest.update();
+    ok(tankTest.y === 90, "Tank moving up passed test!");
+
+    tankTest.direction = "down";
+    tankTest.update();
+    ok(tankTest.y === 100, "Tank moving down passed test!");
+
+    tankTest.direction = "right";
+    tankTest.update();
+    ok(tankTest.x === 110, "Tank moving right passed test!");
+    var enemyTest = new gameObjects.Enemy(200, 200);
+
+    ok(enemyTest.x === 200, "Enemy passed x coord test!");
+    ok(enemyTest.y === 200, "Enemy passed y coord test!");
+    ok(enemyTest.destroyable === true, "Enemy passed destroyable test!");
+    ok(enemyTest.width === 50, "Enemy passed width test!");
+    ok(enemyTest.height === 50, "Enemy passed height test!")
+    ok(enemyTest.direction === "left" , "Enemy passed direction test!");
+    ok(enemyTest.shieldPower === 2, "Enemy passed shield power test!");
+
+    var shootingEnemyTest = new gameObjects.ShootingEnemy(300, 300);
+
+    ok(shootingEnemyTest.x === 300, "Shooting enemy passed x coord test!");
+    ok(shootingEnemyTest.y === 300, "Shooting enemy passed y coord test!");
+    ok(shootingEnemyTest.destroyable === true, "Shooting enemy passed destroyable test!");
+    ok(shootingEnemyTest.width === 50, "Shooting enemy passed width test!");
+    ok(shootingEnemyTest.height === 50, "Shooting enemy passed height test!")
+    ok(shootingEnemyTest.direction === "left", "Shooting enemy passed direction test!");
+    ok(shootingEnemyTest.shieldPower === 2, "Shooting enemy passed shield power test!");
+});

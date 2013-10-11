@@ -1,0 +1,26 @@
+﻿body {
+	background-color:darkgray;
+	font-family:'Times New Roman';
+    color: white;
+}
+#container div
+{
+	width:150px;
+	height:150px;
+	margin:10px;
+	padding:3px;
+	border:3px solid green;
+	border-radius:5px;
+	text-align:center;
+	float:left;
+}
+	#container div h2
+	{
+		font-size:0.7em;
+	}
+
+.clicked
+{
+	width:90px;
+	height:90px;
+}

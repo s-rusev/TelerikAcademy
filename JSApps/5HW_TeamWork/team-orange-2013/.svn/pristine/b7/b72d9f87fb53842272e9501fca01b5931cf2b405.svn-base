@@ -1,0 +1,44 @@
+<?php
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Data Base Connect Class
+ * Author: Stamo Petkov
+ */
+
+    require_once 'conf.php';
+    require_once 'helperFunctions.php';
+    
+    class TankDB {
+        
+        private $user = _DB_USER;
+        private $pass = _DB_PASSWORD;
+        private $dbName = _DB_NAME;
+        private $dbHost = _DB_HOST;
+        public $con = null;
+        
+        public function __construct() {
+           $this->con = mysql_connect($this->dbHost, $this->user, $this->pass)
+               or die ("No connection to DB: " . mysql_error());
+           mysql_query("SET NAMES 'utf8'");
+           mysql_select_db($this->dbName, $this->con)
+               or die ("Unable to change DB: " . mysql_error());
+        }
+        
+        public function register ($name, $email, $password){
+            $name = mysql_real_escape_string($name);
+            $email = mysql_real_escape_string($email);
+            $password = mysql_real_escape_string($password);
+            $query = "INSERT INTO users (Name, Email, Password) 
+                VALUES ('" . $name . "', '" . $email . "', '" . $password . "')";
+            mysql_query($query);
+        }
+
+       public function verify_user_credentials ($email, $password){
+          $password = encrypt($password); 
+          return mysql_query("SELECT * FROM users
+               WHERE Email = '" . $email . "' AND Password = '" . $password . "' AND active = 1");
+       }
+    }
+
+?>

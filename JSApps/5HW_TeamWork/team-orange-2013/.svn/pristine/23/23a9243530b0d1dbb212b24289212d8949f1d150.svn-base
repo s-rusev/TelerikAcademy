@@ -1,0 +1,102 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+    //1000 550
+    var gameFieldSize = Object.freeze({
+            WIDTH: 1000,
+            HEIGHT: 550
+        }),
+        intervalId,
+        objectArray = [];
+        
+
+    function GameField() {
+        this.width = gameFieldSize.WIDTH;
+        this.height = gameFieldSize.HEIGHT;
+        gameFieldStyle = {
+            'width': this.width,
+            'height': this.height
+        }
+    
+        $("#container").css(gameFieldStyle);
+    }
+
+    GameField.prototype.update = function() {
+		for (i = 0; i < objectArray.length; i++) {
+			for (j = 0; j < objectArray.length; j++){
+				if(((objectArray[j].x > objectArray[i].x) &&
+					(objectArray[j].x < objectArray[i].x + objectArray[i].width)) &&
+					(( objectArray[j].y > objectArray[i].y) &&
+					( objectArray[j].y < objectArray[i].y + objectArray[i].height ))){
+						//TODO: implement shield logic
+						objectArray[i].isDestroyed = true;
+						objectArray[j].isDestroyed = true;
+				}
+			}
+        }
+	
+        for (i = 0; i < objectArray.length; i++) {
+            if (objectArray[i].isDestroyed === true) {
+                objectArray.splice(i, 1);
+            } else {
+                objectArray[i].update();
+            }
+        }
+    }
+
+    function start() {
+        //TODO: make it work
+        var field = new GameField();
+        gameObjects.setFieldSize(gameFieldSize.WIDTH, gameFieldSize.HEIGHT);
+        gameObjects.setContainer(document.querySelector("#container"));
+        var aTank = new gameObjects.Tank(100, 100);
+        var enemy1 = new gameObjects.ShootingEnemy(200, 500);
+		var enemy2 = new gameObjects.ShootingEnemy(400, 400);
+		var enemy3 = new gameObjects.ShootingEnemy(500, 500);
+		var enemy4 = new gameObjects.ShootingEnemy(250, 100);
+		var enemy5 = new gameObjects.Enemy(350,200);
+        objectArray.push(aTank);
+        objectArray.push(enemy1);
+		objectArray.push(enemy2);
+		objectArray.push(enemy3);
+		objectArray.push(enemy4);
+		objectArray.push(enemy5);
+		
+	//	objectArray.push(enemy1.bullets[0]);
+        intervalId = setInterval(field.update, 100);
+        // Attach custom events start
+        $(document).ready(function () {
+            $("body").on("changeDirection", aTank.changeDirection);
+            $("body").on("executeCommand", function (e) {
+                switch (e.command) {
+                    case "fire":
+                        aTank.fire();
+						for (i = 0; i < aTank.bullets.length; i++) {
+							objectArray.push(aTank.bullets[i]);
+						}
+                        break;
+                    case "quit":
+                        clearInterval(intervalId);
+                        break;
+                    case "pause":
+                        // Just for test simulating collision
+                        aTank.onCollision();
+                        break;
+                    default:
+                    
+                }
+            });
+        });
+        // Attach custom events end
+    }
+    // fake start
+    start();
+    return {
+        start : start
+    }
+}());

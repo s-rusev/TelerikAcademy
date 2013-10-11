@@ -1,0 +1,114 @@
+[Game name?]
+
+=========================
+Description
+=========================
+
+2D single player (multiplayer?) game like Demon Star (http://www.youtube.com/watch?v=f0B18ekeYmo). All objects are DOM elements - divs with pictures. Movement is horizontal because of widescren monitors.
+
+Killing enemies, collecting bonuses, performing 'feats' for money. Use money to upgrade ship between levels - many options.
+
+Option to load and save progress between levels (server component)
+
+Sharing highscores and sending invites via Facebook.
+
+=========================
+Technologies
+=========================
+
+* Structure - Knockout.js
+
+* Server side - PHP
+
+* UI - JQueryUI
+
+* Storage - SQLite or MySQL
+
+* Social network - Facebook API / OAuth
+
+* Unit testing - ???
+
+=========================
+Plan of action
+=========================
+
+* Prepare user spec - by Saturday, 2013-06-09
+
+- what the user will see, what we want the game to do
+
+- primary responsible person: Velko (see Tasks)
+
+* Design OOP structure - by Sunday, 2013-06-10
+
+- idea: three modules - Level generation/model, Gameplay/logic, UI/general structure
+
+* Implement basic functionality - ???
+
+- make sure it's testable
+
+* Write unit tests while implementing - ???
+
+* Extend as much as we want - ???
+
+* Prepare project defense
+
+(!) Let's aim to be ready by the 15th or 16th
+
+=========================
+Tasks
+=========================
+
+* UI - Stamo, ???
+
+* Server side - Stamo
+
+* Level generation / design - Subo, ???
+
+* Gameplay etc - Velko, ???
+
+* User spec - Velko, with feedback from everyone
+
+* Facebook integration - Velko
+
+* Unit testing - ???
+
+* Documentation - ???
+
+* Materials for defense - ??? (everybody?)
+
+(!) Anyone can ask for help with his part of the project.
+
+=========================
+Ideas / To decide
+=========================
+
+* what's the game name?
+
+* increasing motion speed?
+
+=========================
+Extensibility
+=========================
+
+- multiplayer
+
+- different enemies / obstacles / upgrades
+
+- difficulty levels - part of level generation
+
+- choosing enemy 'skin' - from website on the Internet (like kickassapp.com)
+
+- uploading screenshots to flickr/Facebook
+
+
+
+
+
+
+
+
+
+
+
+
+

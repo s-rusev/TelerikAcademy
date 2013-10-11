@@ -1,0 +1,99 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: User Interface
+ * Author: Stamo Petkov
+ */
+
+var ui = (function() {
+   var Directions = Object.freeze({
+            UP: "up",
+            DOWN: "down",
+            LEFT: "left",
+            RIGHT: "right"
+        }),
+        Commands = Object.freeze({
+            FIRE: "fire",
+            QUIT: "quit",
+            PAUSE: "pause"
+        });
+   
+    // UI Initialization begin
+    $(document).ready(function() {
+        $("body").on("keydown", getKey);
+    });
+     // UI Initialization end
+    
+   function login() {
+       
+   }
+   
+   function register() {
+       
+   }
+   
+   //This method handles onKeyDown event
+    function getKey(evt) {
+        switch (evt.keyCode) {
+            //Left arrow key, triggers changeDirrection event with direction: LEFT
+            case 37:
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"changeDirrection",
+                    direction: Directions.LEFT
+                });
+                break;
+            //Up arrow key, triggers changeDirrection event with direction: UP
+            case 38:
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"changeDirrection",
+                    direction: Directions.UP
+                });
+                break;
+            //Right arrow key, triggers changeDirrection event with direction: RIGHT
+            case 39:
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"changeDirrection",
+                    direction: Directions.RIGHT
+                });
+                break;
+            //Down arrow key, triggers changeDirrection event with direction: DOWN
+            case 40:
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"changeDirrection",
+                    direction: Directions.DOWN
+                });
+                break;
+            //Letter "q" pressed, triggers executeCommand event with command: QUIT
+            case 81:
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.QUIT
+                });
+                break;
+            //Letter "p" pressed, triggers executeCommand event with command: PAUSE
+            case 80:
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.PAUSE
+                });
+                break;
+            //Space bar pressed, triggers executeCommand event with command: FIRE
+            case 32:
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.FIRE
+                });
+                break;
+            default:
+        }
+    }
+    
+    return {
+        
+    };
+}());

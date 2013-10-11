@@ -1,0 +1,28 @@
+<?php
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: User Handler
+ * Author: Stamo Petkov
+ */
+
+    require_once 'db.php';
+    require_once 'dataHandler';
+
+    $db = new TankDB();
+    $data = $_GET;
+    
+    switch ($data["action"]) {
+        case "register":
+            
+
+            break;
+        
+        case "login":
+            
+            break;
+
+        default:
+            break;
+    }
+?>

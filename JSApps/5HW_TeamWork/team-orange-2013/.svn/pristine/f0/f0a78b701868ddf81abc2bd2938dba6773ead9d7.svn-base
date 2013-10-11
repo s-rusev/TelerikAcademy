@@ -1,0 +1,57 @@
+/* 
+    Document   : main
+    Created on : 2013-6-8, 19:07:09
+    Author     : Stamo Petkov
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    
+}
+
+.orange {
+    color: orange;
+}
+
+#container {
+    width: 1000px;
+    height: 550px;
+    overflow: hidden;
+    border: 1px solid #0ed239;
+    float: left;
+    position: relative;
+}
+
+#container:after {
+    content: "";
+    background: url('../images/oranges.jpg') no-repeat;
+    opacity: 0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+aside {
+    margin-left: 20px;
+    float: left;
+}
+
+.bullet {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.shieldProgress {
+    position: absolute;
+    left: 0px;
+    top: -10px;
+    width: 20px;
+    height: 5px;
+    background-color: orange;
+}

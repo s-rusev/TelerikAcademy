@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tank - The Game</title>
+        <link href="css/main.css" rel="stylesheet" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Tank - a game by Team Orange</h1>
+        <section id="container"></section>
+        <aside>Legend / High Score</aside>
+        <script src="js/libs/jquery-1.8.0/jquery.js"></script>
+        <script src="js/libs/jqueryui-1.8.23/jquery-ui.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/gameObjects.js"></script>
+        <script src="js/gameControler.js"></script>
+    </body>
+</html>

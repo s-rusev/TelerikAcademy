@@ -1,0 +1,85 @@
+// Abstract class, representing game objects
+gameObjects.GameObject = function(x, y, width, height, destroyable, movable, shieldPower) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.destroyable = destroyable;
+    this.movable = movable;
+    this.isDestroyed = false;
+    this.shieldPower = shieldPower;
+    this.fullShieldPower = shieldPower;
+    this.element = document.createElement("div");
+    this.element.style.position = "absolute";
+    this.element.style.left = x + "px";
+    this.element.style.top = y + "px";
+    // Moved here, because all objects must be apended
+    if (gameObjects.fieldContainer) {
+        gameObjects.fieldContainer.appendChild(this.element);
+    }
+
+    if (shieldPower > 0) {
+        this.setShieldIndicator();
+    }
+}
+
+gameObjects.GameObject.prototype.getRectangle = function() {
+    return [this.x, this.y, this.width, this.height];
+};
+
+gameObjects.GameObject.prototype.setShieldIndicator = function () {
+    var shieldProgress = document.createElement("div"),
+        shieldContainer = document.createElement("div");
+
+    shieldProgress.className = "shieldProgress";
+    shieldContainer.style.position = "relative";
+    shieldContainer.appendChild(shieldProgress);
+    this.element.appendChild(shieldContainer);
+    this.shieldIndicator = shieldProgress;
+}
+
+gameObjects.GameObject.prototype.die = function(game) {
+    this.isDestroyed = true;
+    if (!(this instanceof gameObjects.Bullet)) {
+        // var explosion = new Audio("sounds/Explosion.ogg");
+        // explosion.play();
+    }
+    var jQueryElement = jQuery(this.element);
+    jQueryElement.effect("explode", function () {
+        jQueryElement.remove();
+    });
+};
+
+gameObjects.GameObject.prototype.update = function () {
+    throw new Error("Update method not implemented");
+}
+
+gameObjects.GameObject.prototype.onCollision = function (obj, game) {
+    if (this.destroyable) {
+        this.shieldPower--;
+        if (this.shieldPower < 0) {
+            this.die(game);
+        } else {
+            this.shieldIndicator.style.width = 20 - (20 / this.fullShieldPower * (this.fullShieldPower - this.shieldPower)) + "px";
+        }
+    }
+}
+
+gameObjects.GameObject.prototype.keepWithinGameField = function () {
+    if (gameObjects.fieldSize !== null) {
+        if (this.x < 0) {
+            this.x = gameObjects.fieldSize.WIDTH;
+        }
+        if (this.x > gameObjects.fieldSize.WIDTH) {
+            this.x = 0;
+        }
+        if (this.y < 0) {
+            this.y = gameObjects.fieldSize.HEIGHT;
+        }
+        if (this.y > gameObjects.fieldSize.HEIGHT) {
+            this.y = 0;
+        }
+    } else {
+        throw new Error("Unknown game field size. Please use setFieldSize() to set it.");
+    }
+}

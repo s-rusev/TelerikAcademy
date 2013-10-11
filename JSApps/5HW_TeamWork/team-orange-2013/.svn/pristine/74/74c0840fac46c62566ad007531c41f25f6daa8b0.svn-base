@@ -1,0 +1,71 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObjects = (function () {
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+
+    //var gameObjectSize = Object.freeze({
+    //    WIDTH: 30,
+    //    HEIGHT: 30
+    //});
+
+    function gameObject(x, y, destroyable, movable) {
+        this.x = x;
+        this.y = y;
+        this.destroyable = destroyable;
+        this.movable = movable;
+        this.element = document.createElement("div");
+        this.element.style.position = "absolute;";
+    }
+
+    gameObject.prototype.render = function () {
+
+    }
+
+    gameObject.prototype.update = function () {
+
+    }
+
+    function tank(x, y, imgSrc) {
+        gameObject.call(this, x, y, true, true);
+        this.direction = "stop";
+        this.element.style.backgroundImage = imgSrc;
+    }
+
+    tank.inherit(gameObject);
+
+    tank.prototype.changeDirection = function (evt) {
+        this.direction = evt.direction;
+        //switch (evt.direction) {
+           //4 images 
+        //    default:
+
+        //}
+    }
+
+    // Game Objects Initialization begin
+    $(document).ready(function () {
+        $("body").on("changeDirrection", function (e) {
+            console.log("Direction is: ", e.direction);
+        });
+        $("body").on("executeCommand", function (e) {
+            console.log("Command is: ", e.command);
+        });
+    });
+    // Game Objects Initialization end
+
+
+
+    return {
+
+    };
+}());

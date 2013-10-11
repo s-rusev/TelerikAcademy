@@ -1,0 +1,122 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Ship
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+    
+    var objects = [];
+    var time = 0;
+
+    objectCollisionDetect = function() {
+    
+        for (j = 0; j < objects.length; j++) {
+        
+            for (k = j + 1; k < objects.length; k++) {
+            
+                var obj1 = objects[j];
+                var obj2 = objects[k];
+                
+                if (utils.rectanglesMeet(obj1.getRectangle(),
+                                         obj2.getRectangle())) {
+                    
+                    obj1.onCollision(obj2, gameControler);
+                    obj2.onCollision(obj1, gameControler);
+                    
+                } 
+                
+            }
+            
+        }
+    };
+
+    update = function() {
+    
+        gameControler.time += 1;
+        
+        objectCollisionDetect();
+        
+        for (i = 0; i < objects.length; i++) {
+            var obj = objects[i];
+            if (obj.isDestroyed) {
+                objects.splice(i, 1);
+                i -= 1;
+                if(!utils.inUnitTest())
+                {
+                    gameObjects.fieldContainer.removeChild(obj.element);
+                }
+
+            } else {
+                obj.update(time);
+            }
+        }
+        
+        for(var ii = 0; ii < gameControler.level.events.length; ++ii) {
+            var event = gameControler.level.events[ii];
+            if (event.cancelled) {
+                gameControler.level.events.splice(ii, 1);
+                ii -= 1;
+                continue;
+            }
+            event.maybeRun(gameControler);
+        }
+        
+    };
+
+    function spawnObject(obj) {
+        objects.push(obj);
+    };
+
+    function start() {
+    
+        $("#container").css(gameFieldStyle = {
+            'width': gameConstants.FIELD_WIDTH_PX,
+            'height': gameConstants.FIELD_HEIGHT_PX
+        });
+        
+        gameControler.level = levelGenerator.generateLevel1();
+        gameControler.time = 0;
+        
+        gameObjects.setFieldSize(gameConstants.FIELD_WIDTH_PX, gameConstants.FIELD_HEIGHT_PX);
+        gameObjects.fieldContainer = document.querySelector("#container");
+        
+        var aShip = new gameObjects.Ship(100, gameConstants.FIELD_HEIGHT_PX / 2);
+        
+        spawnObject(aShip);
+        
+        
+      
+        // This method can set shooting timeout for the tank. Min. 300 ms, default 1000 ms.
+      ui.setShootTimeout(500);
+        // This method turns fast shoot on and off
+//      ui.setFastShoot(true);
+        var intervalId = setInterval(update, gameConstants.UPDATE_INTERVAL_MS);
+        
+        $(document).ready(function () {
+            $("body").on("moveCommand", function(e) { aShip.moveCommand(e); });
+            $("body").on("executeCommand", function (e) {
+                switch (e.command) {
+                    case "fire":
+                        aShip.fire(gameControler);
+                        break;
+                    case "quit":
+                        clearInterval(intervalId);
+                        break;
+                    case "pause":
+                        alert("Game paused! Press OK to continue.");
+                        break;
+                    default:
+                    
+                }
+            });
+        });
+    }
+        
+    return {
+        start: start,
+        spawnObject: spawnObject
+    };
+    
+}());

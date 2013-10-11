@@ -1,0 +1,49 @@
+<?php
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Helper Functions
+ * Author: Stamo Petkov
+ */
+
+    require_once 'conf.php';
+
+    function encrypt($text, $key = _KEY) {	  
+        /* Open module, and create IV */
+        $td = mcrypt_module_open('des', '', 'ecb', '');
+        $key = substr($key, 0, mcrypt_enc_get_key_size($td));
+        $iv_size = mcrypt_enc_get_iv_size($td);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+
+        /* Initialize encryption handle */
+        if (mcrypt_generic_init($td, $key, $iv) != -1) {	
+            /* Encrypt data */
+            $result = mcrypt_generic($td, $text);	 
+            /* Clean up */
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);	       
+            return base64_encode($result);
+        }
+        return false;
+    }
+
+    function decrypt($text, $key = _KEY) {
+        /* Open module, and create IV */
+        $td = mcrypt_module_open('des', '', 'ecb', '');
+        $key = substr($key, 0, mcrypt_enc_get_key_size($td));
+        $iv_size = mcrypt_enc_get_iv_size($td);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+
+        /* Initialize encryption handle */
+        if (mcrypt_generic_init($td, $key, $iv) != -1) {
+            /* Reinitialize buffers for decryption */
+            mcrypt_generic_init($td, $key, $iv);
+            $result = mdecrypt_generic($td, base64_decode($text));	
+            /* Clean up */
+            mcrypt_generic_deinit($td);
+            mcrypt_module_close($td);
+            return trim($result);
+        }
+        return false;
+    }
+?>

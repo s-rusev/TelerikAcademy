@@ -1,0 +1,99 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: CSS
+ * Author: Stamo Petkov
+ */
+
+body {
+    
+}
+
+.orange {
+    color: orange;
+}
+
+#container {
+    width: 1000px;
+    height: 550px;
+    overflow: hidden;
+    border: 1px solid black;
+    float: left;
+    position: relative;
+}
+
+#container:after {
+    content: "";
+    background: url('../images/stars.gif');
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+aside {
+    margin-left: 20px;
+    float: left;
+}
+
+.bullet {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.shieldProgress {
+    position: absolute;
+    left: 0px;
+    top: -10px;
+    width: 20px;
+    height: 5px;
+    background-color: orange;
+}
+
+#loginContainer {
+    float: right;
+    width: 340px;
+    color: #aaa;
+}
+
+#loginContainer input {
+    width: 120px;
+    margin-right: 3px;
+    border: 1px solid #0ed239;
+}
+
+#loginContainer input[type="button"] {
+    width: 60px;
+    margin-right: 3px;
+    border: 1px solid #0ed239;
+    background: #f6b855 url(images/ui-bg_highlight-hard_75_f6b855_1x100.png) 50% 50% repeat-x;
+    font-weight: normal;
+    color: #555555;
+    cursor: pointer;
+}
+
+#loginContainer input[type="button"]:hover {
+    border: 1px solid #999999;
+    background: #f7c626 url(images/ui-bg_glass_75_f7c626_1x400.png) 50% 50% repeat-x;
+    font-weight: normal;
+    color: #212121;
+}
+
+#loginContainer #register
+{
+    color: orange;
+    cursor: pointer;
+}
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+.ui-dialog input {
+   margin-bottom: 5px;
+}

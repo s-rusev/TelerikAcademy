@@ -1,0 +1,58 @@
+levelGenerator = {};
+
+levelGenerator.spawnAt = function(xx, yy) { 
+    var action = function(game) {
+        game.spawnObject(new gameObjects.ShootingEnemy(xx, yy));
+    };
+    
+    return function(time) {
+        return GameEvent.createEventOnceAtOrLater(time, function(game) { action(game); });
+    };
+};
+
+levelGenerator.periodicMaybeSpawnAt = function(period, xx, yy, prob, times, notBefore, notAfter) { 
+    var action = function(game) {
+        var enemy = new gameObjects.ShootingEnemy(xx, yy);
+        game.spawnObject(enemy);
+        enemy.startFiring(game);
+    };
+    
+    return GameEvent.createEventPeriodic(period, function(game) { action(game); }, prob, times, notBefore, notAfter);
+};
+
+levelGenerator.generateLevel1 = function() {
+
+    var level = new GameLevel(150);
+    
+    var add = function(yy) {
+    level.events.push(
+        levelGenerator.periodicMaybeSpawnAt(
+            utils.fromSeconds(2), 
+            gameConstants.FIELD_WIDTH_PX - 50, yy, 
+            0.5, 
+            null, utils.fromSeconds(1), null));
+    };
+    
+    add(50);
+    add(200);
+    //add(350);
+    add(500);
+    
+    return level;
+    
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

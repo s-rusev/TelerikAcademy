@@ -1,0 +1,19 @@
+// http://requirejs.org/docs/start.html
+
+Function.prototype.inherit = function (parent) {
+    this.prototype = new parent();
+    this.prototype.constructor = parent;
+};
+
+require(["libjs"]);
+require(["utils"]);
+require(["simpleRand"]);
+require(["gameObjects"]);
+require(["gameObjects/GameObject"]);
+require(["gameObjects/Bullet"]);
+require(["gameObjects/Ship"]);
+require(["gameObjects/Enemy"]);
+require(["gameObjects/ShootingEnemy"]);
+
+require(["gameControler"]);
+require(["ui"]);

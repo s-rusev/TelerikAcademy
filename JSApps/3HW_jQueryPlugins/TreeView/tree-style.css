@@ -1,0 +1,15 @@
+﻿body{
+    font-size:30px;
+}
+ul{
+    list-style-type:none;
+}
+
+ul ul{
+    display:none;
+}
+
+a{
+    text-decoration:none;
+    color:black;
+}

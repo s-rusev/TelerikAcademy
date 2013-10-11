@@ -1,0 +1,15 @@
+﻿body {
+	background-color:darkgray;
+	font-family:'Times New Roman';
+    color:white
+}
+
+#container div
+{
+	font-weight:bold;
+	width:300px;
+	margin:10px;
+	padding:10px;
+	border:3px solid green;
+	border-radius:5px;
+}

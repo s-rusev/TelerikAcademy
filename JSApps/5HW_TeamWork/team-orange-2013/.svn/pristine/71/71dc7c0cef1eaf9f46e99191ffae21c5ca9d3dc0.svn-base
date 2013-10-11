@@ -1,0 +1,36 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Controler
+ * Author: Velko Nikolov
+ */
+
+var gameControler = (function () {
+    //1000 550
+    var gameFieldSize = Object.freeze({
+        WIDTH: 1000,
+        HEIGHT: 550
+    });
+
+    function gameField() {
+        this.width = gameFieldSize.WIDTH;
+        this.height = gameFieldSize.HEIGHT;
+        gameFieldStyle = {
+            'width': this.width,
+            'height': this.height
+        }
+        $("#container").css(gameFieldStyle);
+    }
+
+    gameField.prototype.render = function () {
+
+    }
+
+    function start() {
+        //TODO: make it work
+    }
+
+    return {
+        start : start
+    }
+}());

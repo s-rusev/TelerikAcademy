@@ -1,0 +1,174 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: Game Objects
+ * Author: Subo Rusev
+ */
+
+var gameObjects = (function () {
+    var tankSelf;
+
+    // JS OOP Helper start
+    Function.prototype.inherit = function (parent) {
+        this.prototype = new parent();
+        this.prototype.constructor = parent;
+    };
+    // JS OOP Helper end
+
+    function GameObject(x, y, destroyable, movable) {
+        this.x = x;
+        this.y = y;
+        this.destroyable = destroyable;
+        this.movable = movable;
+        this.element = document.createElement("div");
+        this.element.style.position = "absolute"; //! maybe ;
+        this.element.style.left = x + "px";
+        this.element.style.top = y + "px";
+    }
+
+    GameObject.prototype.update = function () {
+
+    }
+
+    function Tank(x, y) {
+        GameObject.call(this, x, y, true, true);
+        tankSelf = this;
+        this.direction = "stop";
+        this.lastDirection = "right";
+        this.element.style.backgroundImage = "url(images/tank-right.png)";
+        this.element.style.width = "50px";
+        this.element.style.height = "25px";
+        this.element.style.display = "block";
+        var el = document.querySelector("#container");
+        el.appendChild(this.element);
+        this.bullets = [];
+    }
+
+    Tank.inherit(GameObject);
+
+    Tank.prototype.changeDirection = function (evt) {
+        tankSelf.lastDirection = tankSelf.direction;
+        tankSelf.direction = evt.direction;
+        switch (evt.direction) {
+            case "left":
+                tankSelf.element.style.backgroundImage = "url(images/tank-left.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                break;
+            case "right":
+                tankSelf.element.style.backgroundImage = "url(images/tank-right.png)";
+                tankSelf.element.style.width = "50px";
+                tankSelf.element.style.height = "25px";
+                break;
+            case "up":
+                tankSelf.element.style.backgroundImage = "url(images/tank-up.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                break;
+            case "down":
+                tankSelf.element.style.backgroundImage = "url(images/tank-down.png)";
+                tankSelf.element.style.width = "25px";
+                tankSelf.element.style.height = "50px";
+                break;
+            default:
+
+        }
+    }
+
+    Tank.prototype.update = function () {
+        switch (tankSelf.direction) {
+            case "right":
+                tankSelf.x += 10;
+                tankSelf.element.style.left = tankSelf.x + "px";
+                break;
+            case "left":
+                tankSelf.x -= 10;
+                tankSelf.element.style.left = tankSelf.x + "px";
+                break;
+            case "up":
+                tankSelf.y -= 10;
+                tankSelf.element.style.top = tankSelf.y + "px";
+                break;
+            case "down":
+                tankSelf.y += 10;
+                tankSelf.element.style.top = tankSelf.y + "px";
+                break;
+            default:
+        }
+
+        for (var i = 0, len = tankSelf.bullets.length; i < len; i += 1) {
+            if (tankSelf.bullets[i]) {
+                tankSelf.bullets[i].update();
+            }
+        }
+
+    }
+
+    Tank.prototype.fire = function () {
+        var bullet;
+        var bulletDirection;
+        if (tankSelf.direction == "stop") {
+            bulletDirection = tankSelf.lastDirection;
+        } else {
+            bulletDirection = tankSelf.direction;
+        }
+        switch (bulletDirection) {
+            case "right":
+                bullet = new Bullet(tankSelf.x + 50, tankSelf.y + 9, bulletDirection);
+                break;
+            case "left":
+                bullet = new Bullet(tankSelf.x, tankSelf.y + 9, bulletDirection);
+                break;
+            case "up":
+                bullet = new Bullet(tankSelf.x + 10, tankSelf.y, bulletDirection);
+                break;
+            case "down":
+                bullet = new Bullet(tankSelf.x + 10, tankSelf.y + 50, bulletDirection);
+                break;
+            default:
+        }
+        tankSelf.bullets.push(bullet);
+    }
+
+    function Bullet(x, y, direction) {
+        GameObject.call(this, x, y, true, true);
+        this.direction = direction;
+        this.element.style.width = "20px";
+        this.element.style.height = "20px";
+        this.element.style.color = "blue";
+        this.element.style.display = "block";
+        this.element.innerHTML = '*';
+        var el = document.querySelector("#container");
+        el.appendChild(this.element);
+    }
+
+    Bullet.inherit(GameObject);
+
+    Bullet.prototype.update = function () {
+        //TODO: collision detection will be using differences between
+        //old and new coordinates
+        switch (this.direction) {
+            case "right":
+                this.x += 30;
+                this.element.style.left = this.x + "px";
+                break;
+            case "left":
+                this.x -= 30;
+                this.element.style.left = this.x + "px";
+                break;
+            case "up":
+                this.y -= 30;
+                this.element.style.top = this.y + "px";
+                break;
+            case "down":
+                this.y += 30;
+                this.element.style.top = this.y + "px";
+                break;
+            default:
+        }
+    }
+
+    return {
+        Tank: Tank
+    };
+}());

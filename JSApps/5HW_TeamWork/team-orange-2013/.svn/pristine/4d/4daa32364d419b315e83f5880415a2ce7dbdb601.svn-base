@@ -1,0 +1,12 @@
+test("Tank properties test", function () {
+    var tankTest = new gameObjects.Tank(100, 100);
+
+    ok(tankTest.x === 100, "Passed x coord!");
+    ok(tankTest.y === 100, "Passed y coord!");
+    ok(tankTest.destroyable === true, "Passed destroyable test!");
+    ok(tankTest.width === 50, "Passed width!");
+    ok(tankTest.height === 25, "Passed height!");
+    ok(tankTest.direction === "stop");
+    ok(tankTest.lastDirection === "right");
+    ok(tankTest.shieldPower === 5);
+});

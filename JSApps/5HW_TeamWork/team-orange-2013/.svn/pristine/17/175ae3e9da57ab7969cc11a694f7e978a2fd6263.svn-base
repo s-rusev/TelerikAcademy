@@ -1,0 +1,24 @@
+/* 
+    Document   : main
+    Created on : 2013-6-8, 19:07:09
+    Author     : Stamo Petkov
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+    
+}
+
+#container {
+    width: 1000px;
+    height: 550px;
+    overflow: hidden;
+    border: 1px solid black;
+    float: left;
+}
+
+aside {
+    margin-left: 20px;
+    float: left;
+}

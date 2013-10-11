@@ -1,0 +1,316 @@
+/* 
+ * Developed by: Team Orange / Telerik Academy
+ * Title: Tank
+ * Module: User Interface
+ * Author: Stamo Petkov
+ */
+
+var ui = (function() {
+   var Directions = Object.freeze({
+            UP: "up",
+            DOWN: "down",
+            LEFT: "left",
+            RIGHT: "right",
+            STOP: "stop"
+        }),
+        Commands = Object.freeze({
+            START_FIRE: "start-fire",
+            STOP_FIRE: "stop-fire",
+            QUIT: "quit",
+            PAUSE: "pause"
+        }),
+        
+        directionSet = false,
+        textEnter = false,
+        player = null;
+
+    function loadHighScore() {
+       
+   }
+   
+   // Attaching event listeners
+    $(document).ready(function() {
+        $("body").on("keydown", getKey);
+        $("body").on("keyup", getKeyUp);
+        $("#container").append('<button id="startButton">Start game</button>');
+        $("#startButton").css({
+            position: "relative",
+            top: gameConstants.FIELD_HEIGHT_PX / 2 - 20,
+            left: gameConstants.FIELD_WIDTH_PX / 2 - 50
+        });
+        $("#startButton").button().on('click', function() {
+            gameControler.start();
+            $("#startButton").remove();
+        });
+    });
+
+   //This method handles onKeyDown event
+    function getKey(evt) {
+        if (!textEnter) {
+            switch (evt.keyCode) {
+       //Left arrow key, triggers changeDirrection event with direction: LEFT
+                case 37:
+                    evt.preventDefault();
+                    if (!directionSet) {
+                        $("body").trigger({
+                            type:"moveCommand",
+                            direction: Directions.LEFT
+                        });
+                        directionSet = true;
+                    }
+                    break;
+       //Up arrow key, triggers changeDirrection event with direction: UP
+                case 38:
+                    evt.preventDefault();
+                    if (!directionSet) {
+                        $("body").trigger({
+                            type:"moveCommand",
+                            direction: Directions.UP
+                        });
+                        directionSet = true;
+                    }
+                    break;
+       //Right arrow key, triggers changeDirrection event with direction: RIGHT
+                case 39:
+                    evt.preventDefault();
+                    if (!directionSet) {
+                        $("body").trigger({
+                            type:"moveCommand",
+                            direction: Directions.RIGHT
+                        });
+                        directionSet = true;
+                    }
+                    break;
+       //Down arrow key, triggers changeDirrection event with direction: DOWN
+                case 40:
+                    evt.preventDefault();
+                    if (!directionSet) {
+                        $("body").trigger({
+                            type:"moveCommand",
+                            direction: Directions.DOWN
+                        });
+                        directionSet = true;
+                    }
+                    break;
+       //Letter "q" pressed, triggers executeCommand event with command: QUIT
+                case 81:
+                    evt.preventDefault();
+                    $("body").trigger({
+                        type:"executeCommand",
+                        command: Commands.QUIT
+                    });
+                    break;
+       //Letter "p" pressed, triggers executeCommand event with command: PAUSE
+                case 80:
+                    evt.preventDefault();
+                    $("body").trigger({
+                        type:"executeCommand",
+                        command: Commands.PAUSE
+                    });
+                    break;
+       //Space bar pressed, triggers executeCommand event with command: FIRE
+                case 32:
+                    evt.preventDefault();
+                    $("body").trigger({
+                        type:"executeCommand",
+                        command: Commands.START_FIRE
+                    });
+                    break;
+                default:
+            }
+        }
+    }
+
+    function getKeyUp(evt) {
+        if (!textEnter) {
+            if (evt.keyCode === 37 || evt.keyCode === 38 || 
+                evt.keyCode === 39 || evt.keyCode === 40) {
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"moveCommand",
+                    direction: Directions.STOP
+                });
+                directionSet = false;
+            }
+            else if (evt.keyCode === 32) {
+                evt.preventDefault();
+                $("body").trigger({
+                    type:"executeCommand",
+                    command: Commands.STOP_FIRE
+                });
+            }
+        }
+    }
+
+    function loginBox(containerId) {
+        var container = document.querySelector("#" + containerId),
+            dialog = document.createElement("div");
+    
+        dialog.id = "loginBox";
+        var emailInput = document.createElement("input");
+        emailInput.type = "email";
+        emailInput.placeholder = "email";
+        emailInput.id = "email";
+        
+        var passwordInput = document.createElement("input");
+        passwordInput.type = "password";
+        passwordInput.placeholder = "password";
+        passwordInput.id = "password";
+        
+        var loginButton =  document.createElement("input");
+        loginButton.type = "button";
+        loginButton.id = "loginButton";
+        loginButton.value = "Login";
+        
+        var registerDiv = document.createElement("div");
+        registerDiv.innerHTML = 'or <span id="register">register</span> to be able to save your game!';
+        registerDiv.id = "registerMessage";
+        
+        dialog.appendChild(emailInput);        
+        dialog.appendChild(passwordInput);
+        dialog.appendChild(loginButton);
+        dialog.appendChild(registerDiv);
+
+        if (!utils.inUnitTest())
+        {
+            container.appendChild(dialog);
+        }
+        $("#loginButton").on("click", login);
+        $("#register").on("click", register);
+        $("#email").on("focus", function() {
+            textEnter = true;
+        });
+        $("#email").on("blur", function() {
+            textEnter = false;
+        });
+        $("#password").on("focus", function() {
+            textEnter = true;
+        });
+        $("#password").on("blur", function() {
+            textEnter = false;
+        });
+    }
+
+    function registerDialog() {
+        textEnter = true;
+        var dialog = document.createElement("div");
+        dialog.id = "registerDialog";
+        dialog.title = "Register";
+        dialog.style.visible = "hidden";
+        
+        var NameInput = document.createElement("input");
+        NameInput.type = "text";
+        NameInput.placeholder = "name";
+        NameInput.id = "registerName";
+        
+        var emailInput = document.createElement("input");
+        emailInput.type = "email";
+        emailInput.placeholder = "email";
+        emailInput.id = "registerEmail";
+        
+        var passwordInput = document.createElement("input");
+        passwordInput.type = "password";
+        passwordInput.placeholder = "password";
+        passwordInput.id = "registerPassword"; 
+        
+        var passwordAgainInput = document.createElement("input");
+        passwordAgainInput.type = "password";
+        passwordAgainInput.placeholder = "password again";
+        passwordAgainInput.id = "registerPasswordAgain"; 
+        
+        dialog.appendChild(NameInput);
+        dialog.appendChild(emailInput);
+        dialog.appendChild(passwordInput);
+        dialog.appendChild(passwordAgainInput);
+        
+        $("body").append(dialog);
+        $("#registerDialog").dialog({
+            closeOnEscape: false,
+            height: 320,
+            width: 270,
+            modal: true,
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            buttons: {
+                "Register": function() {
+                    var name = $("#registerName").val();
+                    var email = $("#registerEmail").val();
+                    var password = $("#registerPassword").val();
+                    var passwordAgain = $("#registerPasswordAgain").val();
+                    var error = false;
+                    
+                    if (name === "") {
+                        $("#registerName").addClass( "ui-state-error" );
+                        error = true;
+                    } else {
+                        $("#registerName").removeClass( "ui-state-error" );
+                    }
+                
+                    if (email === "") {
+                        $("#registerEmail").addClass( "ui-state-error" );
+                        error = true;
+                    } else {
+                        $("#registerEmail").removeClass( "ui-state-error" );
+                    }
+                    
+                    if (password === "" || password !== passwordAgain) {
+                        $("#registerPassword").addClass( "ui-state-error" );
+                        $("#registerPasswordAgain").addClass( "ui-state-error" );
+                        error = true;
+                    } else {
+                        $("#registerPassword").removeClass( "ui-state-error" );
+                        $("#registerPasswordAgain").removeClass( "ui-state-error" );
+                    }
+                
+                    if (!error) {
+                        player.register(name, email, password);
+                        $(this).dialog("destroy");
+                        $("#registerDialog").remove();
+                        textEnter = false;
+                    }
+                },
+                Cancel: function() {
+                    $(this).dialog("destroy");
+                    $("#registerDialog").remove();
+                    textEnter = false;
+                }
+            }
+        });
+    }
+
+    function login() {
+        player = new user.Player();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        player.login(email, password);
+    }
+
+    function register() {
+        player = new user.Player();
+        registerDialog();
+    }
+    
+    
+    
+    return {
+        player: player,
+        loginBox: loginBox,
+        loadHighScore: loadHighScore,
+    };
+}());
+
+
+ui.loginBox("loginContainer");
+
+
+
+
+
+
+
+
+
+
+
